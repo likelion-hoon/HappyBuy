@@ -1,6 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 
- 
  <nav class="navbar navbar-default">
   
   <div class="container-fluid">
@@ -67,16 +66,25 @@
             </li>
           </ul>
         </li>
-        <li><a href="#">QnA 게시판</a></li>
+        <li><a href="/board.jsp">QnA 게시판</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">고객<span class="caret"></span></a>
+          <% if(session.getAttribute("userID") == null) { %>
+        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a> 
+          <% } else { %>
+          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= session.getAttribute("userID") %><span class="caret"></span></a>
+          <% } %>
           <ul class="dropdown-menu">
-            <li><a href="/login.jsp">로그인</a></li>
-            <li><a href="#">장바구니</a></li>
-            <li><a href="#">마이 프로필</a></li>
+           <% if(session.getAttribute("userID") == null) { %>
+              <li><a href="/login.jsp">로그인</a></li>
+              <li><a href="/logout.jsp">회원가입</a></li>
+           <% } else { %>
+           	  <li><a href="/logout.jsp">로그아웃</a></li>
+              <li><a href="#">장바구니</a></li>
+              <li><a href="#">마이 프로필</a></li>
+           <% } %>
           </ul>
         </li>
       </ul>
