@@ -6746,7 +6746,7 @@ button.close {
 }
 @media print {
   .hidden-print {
-    /* display: none !important; */
+    display: none !important;
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */

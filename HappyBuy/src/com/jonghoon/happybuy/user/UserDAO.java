@@ -25,6 +25,7 @@ public class UserDAO {
 		}
 	}
 
+	// 로그인 유효성 체크
 	public boolean login(String email, String password) {
 		try {
 			
@@ -47,6 +48,7 @@ public class UserDAO {
 		return false;
 	}
 
+	// 해당 email을 가지고 있는 user를 return 해주는 함수
 	public User getUser(String email) {
 		try {
 			pstmt = conn.prepareStatement("select * from user where email = ?");
@@ -57,7 +59,7 @@ public class UserDAO {
 				User user = new User();
 				user.setIdx(rs.getInt("idx"));
 				user.setEmail(rs.getString("email"));
-				user.setPasscheck(rs.getString("password"));
+				user.setPassword(rs.getString("password"));
 				user.setNumber(rs.getString("number"));
 				user.setGender(rs.getBoolean("gender"));
 				user.setAddress(rs.getString("address"));
@@ -71,5 +73,56 @@ public class UserDAO {
 		}
 
 		return null;
+	}
+	
+	// registraion_proc.jsp에서 user정보를 db에 insert하는 함수
+	public int insertUser(User user) {
+		
+		try {
+			pstmt = conn.prepareStatement("insert into user(email, password, number, gender, address, pnumber) values (?,?,?,?,?,?)");
+			pstmt.setString(1, user.getEmail());
+			pstmt.setString(2, user.getPassword());
+			pstmt.setString(3, user.getNumber());
+			pstmt.setBoolean(4, user.isGender());
+			pstmt.setString(5, user.getAddress());
+			pstmt.setString(6, user.getPnumber());
+			
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// 값을 집어넣고 return true를 실행함
+		
+		
+		return -1; 
+	}
+	
+	// 모든 연결자원 접속종료 
+	public void close()  {
+		if(rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}
+		
+		if(pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}
+		
+		if(conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}
+
 	}
 }

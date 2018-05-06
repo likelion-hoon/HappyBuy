@@ -29,8 +29,8 @@
 	<%@ include file="nav.jsp" %>
 	<div class="container" style="margin-top:60px;"> 
 		<div class="row">
-			<div class="col-md-offset-2 col-md-8">
-				<h2> 로그인 페이지 </h2>
+			<div class="col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-offset-8">
+				<h2 style="margin-bottom:30px;"> 로그인 페이지 </h2>
 				<form action="login_proc.jsp" method="POST">
 					<div class="form-group">
 						<label for="email">이메일</label>

@@ -1,12 +1,12 @@
 package com.jonghoon.happybuy.user;
 
+// User의 컬럼은 8개
 public class User {
 	
 	private int idx; 		   // 유저번호, auto increment
 	private String email; 	   // 이메일
 	private String password;   // 비밀번호
-	private String passcheck;  // 비밀번호 체크 
-	private String number;     // 주민등록 번호
+	private String number;     // 주민등록 번호, 앞 6자리
 	private boolean gender;    // 성별
 	private String address;    // 주소, 배송을 위해서 필요함
 	private String pnumber;    // 핸드폰 번호, 문자 전송을 위해서 필요함
@@ -14,13 +14,21 @@ public class User {
 	
 	public User() { }
 	
-	public User(int idx, String email, String password, String passcheck, String number, boolean gender, String address,
+	public User(String email, String password, String number, boolean gender, String address, String pnumber) {
+		this.email = email;
+		this.password = password;
+		this.number = number;
+		this.gender = gender;
+		this.address = address;
+		this.pnumber = pnumber;
+	}
+	
+	public User(int idx, String email, String password, String number, boolean gender, String address,
 			String pnumber, String point) {
 		
 		this.idx = idx;
 		this.email = email;
 		this.password = password;
-		this.passcheck = passcheck;
 		this.number = number;
 		this.gender = gender;
 		this.address = address;
@@ -46,12 +54,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPasscheck() {
-		return passcheck;
-	}
-	public void setPasscheck(String passcheck) {
-		this.passcheck = passcheck;
-	}
+	
 	public String getNumber() {
 		return number;
 	}

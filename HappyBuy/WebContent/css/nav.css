@@ -1,3 +1,6 @@
+@charset "UTF-8";
+
+
 @font-face {
 	font-family: yoon;
 	src: url(YoonGothicPro740.otf);
@@ -20,42 +23,37 @@ body {
   border-color: #1e90ff;
   background-image: none;
 }
+
+/* navbar-brand */ 
+
 .navbar-default .navbar-brand {
   color: #ffffff;
 }
+
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
   color: #ecf0f1;
 }
-.navbar-default .navbar-text {
-  color: #ffffff;
-}
+
+/* navbar-brand end */
+
+
 .navbar-default .navbar-nav > li > a {
   color: #ffffff;
 }
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
+
+/* a:focus 제거 */
+.navbar-default .navbar-nav > li > a:hover {
   color: #ecf0f1;
   border-bottom: 5px solid white;
-  border-radius: 5px;
+  border-radius-bottom: 5px;
 }
+
+/* dropdown 됬을때의 배경색 */
 .navbar-default .navbar-nav > li > .dropdown-menu {
   background-color: #ffffff;
 }
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
-  background-color: #ffffff;
-  color: #333;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
-  color: #ecf0f1;
-  background-color: #ffffff;
-  background-image: none;
-  border-left: 5px solid white;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu > li.divider {
-  background-color: #1e90ff;
-}
+
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
@@ -63,6 +61,7 @@ body {
   background-color: #1e90ff;
   background-image: none;
 }
+
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
@@ -70,6 +69,7 @@ body {
   background-color: #1e90ff;
   background-image: none;
 }
+
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
@@ -77,41 +77,70 @@ body {
   background-color: #1e90ff;
   background-image: none;
 }
+
+/* navbar-toggle 설정 */
 .navbar-default .navbar-toggle {
   border-color: #1e90ff;
 }
+
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
   background-color: #1e90ff;
   background-image: none;
 }
+
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #ffffff;
 }
+/* navbar-toggle 설정완료 */
+
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: #ffffff;
 }
+
 .navbar-default .navbar-link {
   color: #ffffff;
 }
+
 .navbar-default .navbar-link:hover {
   color: #ecf0f1;
 }
 
+
+/* navbar-right 설정 */
+.navbar-default .navbar-right > .open > .dropdown-menu {
+  	background-color: #1e90ff;
+}
+
+.navbar-default .navbar-right > .open > .dropdown-menu > li > a {
+	color: #fff;
+	background-color: #1e90ff;
+	background-image: none;
+}
+
+.navbar-default .navbar-right > .open > .dropdown-menu > li > a:hover {
+  	color: #fff;
+  	border-left: 5px solid white;
+}
+/* navbar-right 설정 완료 */
+
+
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #ffffff;
+    color: #fff;
   }
+  
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ecf0f1;
+    color: #ecf0f1;;
   }
+  
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ecf0f1;
-    background-color: #1e90ff;
+    border-left: 5px solid white;
     background-image: none;
   }
 }

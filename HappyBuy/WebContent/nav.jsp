@@ -4,7 +4,7 @@
   
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -12,7 +12,7 @@
       <a class="navbar-brand" href="/"> HappyBuy </a>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">쇼핑<span class="caret"></span></a>
@@ -72,18 +72,18 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <% if(session.getAttribute("userID") == null) { %>
-        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a> 
+        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify"></span></a> 
           <% } else { %>
           	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= session.getAttribute("userID") %><span class="caret"></span></a>
           <% } %>
           <ul class="dropdown-menu">
            <% if(session.getAttribute("userID") == null) { %>
               <li><a href="/login.jsp">로그인</a></li>
-              <li><a href="/logout.jsp">회원가입</a></li>
+              <li><a href="/registration.jsp">회원가입</a></li>
            <% } else { %>
            	  <li><a href="/logout.jsp">로그아웃</a></li>
-              <li><a href="#">장바구니</a></li>
-              <li><a href="#">마이 프로필</a></li>
+              <li><a href="/cart.jsp">장바구니</a></li>
+              <li><a href="/myprofile.jsp">마이 프로필</a></li>
            <% } %>
           </ul>
         </li>
