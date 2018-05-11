@@ -14,6 +14,12 @@ public class User {
 	
 	public User() { }
 	
+	// 로그인할때 jsp:setProperty 에서 사용 (login_proc.jsp)
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+	
 	public User(String email, String password, String number, boolean gender, String address, String pnumber) {
 		this.email = email;
 		this.password = password;

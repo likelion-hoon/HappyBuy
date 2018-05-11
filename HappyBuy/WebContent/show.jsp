@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="com.jonghoon.happybuy.board.BoardDAO, com.jonghoon.happybuy.board.BoardDAO" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +18,14 @@
 	
 	<title> view 페이지 </title>
 </head>
-<body>
+<%
+	int p = Integer.parseInt(request.getParameter("page")); 
+	BoardDAO boardDAO = new BoardDAO(); 
+	Board board = boardDAO.getBoard(p);
+%>
 
+<body>
+	<p><%= p %></p>
 </body>
 </html>
 

@@ -18,17 +18,8 @@
 
 <%
 	PrintWriter pw = response.getWriter();
-	
 	String passcheck = request.getParameter("passcheck"); // passcheck는 DB에 저장되지는 않는다.
 	
-/* 	String email = request.getParameter("email");
-	String password = request.getParameter("password");
-	
-	String number = request.getParameter("number");
-	//  value=1 이면 남자, value=2 이면 여자
-	boolean gender = Boolean.valueOf(request.getParameter("gender")); 
-	String address = request.getParameter("address");
-	String pnumber = request.getParameter("pnumber"); */
 	
 	// 값이 빈 곳이 있으면 이전 페이지로 돌려보낸다.
 	if(user.getEmail()==null || user.getPassword()==null || user.getNumber()==null ||

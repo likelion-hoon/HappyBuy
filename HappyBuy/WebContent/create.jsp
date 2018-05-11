@@ -1,18 +1,32 @@
-<!-- new.jsp 로직 페이지 -->
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.jonghoon.happybuy.board.BoardDAO" %>
+<%@ page import="java.io.PrintWriter" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
 <%
+	// setProperty 전에 인코딩 설정
 	request.setCharacterEncoding("UTF-8");
-	String title = request.getParameter("title"); 
-	String content = request.getParameter("content"); 
+%>
+<jsp:useBean id="board" class="com.jonghoon.happybuy.board.Board" scope="page" />
+<jsp:setProperty name="board" property="*" />
+
+
+<%
+	PrintWriter pw = response.getWriter(); 
+	BoardDAO boardDAO = new BoardDAO(); 
 	
-	// write(title, content) : boolean 
-	
-	if() { // 성공
-		
+	if(boardDAO.insertBoard(board) > 0) { // 성공
+		pw.println("<script>");
+		pw.println("alert('글이 성공적으로 작성되었습니다.')");
+		pw.println("location.href='board.jsp'");
+		pw.println("</script>");
+		pw.close();
 	} else {
-		response.sendRedirect("new.jsp"); 
+		pw.println("<script>");
+		pw.println("alert('글 작성에 실패하였습니다.')");
+		pw.println("location.href='new.jsp'");
+		pw.println("</script>");
+		pw.close();
 	}
+	
+	boardDAO.close(); 
 %>
