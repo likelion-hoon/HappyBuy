@@ -63,7 +63,7 @@
 	  <div class="lower">
 		  <!--  추천 버튼 -->
 	      <div class="recommend" style="font-size:30px;text-align:center;">
-	      	  <a href="/recommend.jsp"><i class="fa fa-thumbs-up"></i></a>
+	      	  <a href="/recommend.jsp?email=<%= session.getAttribute("userID") %>&idx=<%= board.getIdx() %>"><i class="fa fa-thumbs-up"></i></a>
 	      </div>
 	      
 	      <% if(session.getAttribute("userID").equals(board.getName())) { %>

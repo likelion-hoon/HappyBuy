@@ -140,8 +140,33 @@ public class BoardDAO {
 	}
 	
 	// 추천수를 올려주는 함수 
-	public void increateRecom(int idx) {
+	public int increaseRecom(int idx) {
+		try {
+			pstmt = conn.prepareStatement("update board set recom = recom + 1 where idx = ?");
+			pstmt.setInt(1, idx);
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+		return -1; 
+	}
+	
+	// 추천 중복 체크 하는 함수 
+	public int checkRecom(String email, int idx) {
+		try {
+			pstmt = conn.prepareStatement("insert into recommend values (?,?)");
+			pstmt.setString(1, email);
+			pstmt.setInt(2, idx);
+			
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
 	}
 
 	public void close() {
