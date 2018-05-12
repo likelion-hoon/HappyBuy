@@ -1,6 +1,5 @@
-<!-- 회원가입 화면 -->
-
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>    
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -16,6 +15,19 @@
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/nav.css">
 </head>
+<%
+	PrintWriter pw = response.getWriter(); 
+	if(session.getAttribute("userID")!=null) {
+		pw.println("<script>");
+		pw.println("alert('로그인된 상태입니다.')");
+		pw.println("location.href='index.jsp'");
+		pw.println("</script>");
+		return;
+	}
+%>
+
+
+
 <body>
 	<%@ include file="nav.jsp" %>
 	<div class="container" style="margin-top:60px;">
