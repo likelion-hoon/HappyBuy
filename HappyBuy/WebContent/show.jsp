@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.jonghoon.happybuy.board.BoardDAO, com.jonghoon.happybuy.board.Board" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="com.jonghoon.happybuy.file.downloadAction" %>
 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -7,7 +9,7 @@
 
 <html>
 <head>
-	<meta name="viewport" content="widlabel=device-widlabel, initial-scale=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 	
 	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
 	<script src="js/jquery-3.3.1.min.js"></script>
@@ -26,6 +28,7 @@
 	boardDAO.increaseHit(num); // 조회수 증가
 	Board board = boardDAO.getBoard(num);
 	
+	String fileRealName = board.getFileRealName();
 	boardDAO.close(); 
 %>
 
@@ -42,11 +45,13 @@
 			</div>
 		</div>
 	  </div>
+	  <div class="lower">
 		<div class="row" style="margin-top:2px;">
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 				<label> 글 제목 </label>&nbsp; : &nbsp;<%= board.getTitle() %>
 			</div>
 		</div>
+		
 		<div class="row" style="margin-top:2px;">
 		  <div class="col-md-5">
 			<label> 작성자 </label>&nbsp; : &nbsp;<%= board.getName() %> &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -54,6 +59,20 @@
 			<label> 추천수 </label>&nbsp; : &nbsp;<%= board.getRecom()%>
 		  </div>
 		</div>
+	  
+		<div class="row" style="margin-top:2px;">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<label> 파일명 </label>&nbsp; : &nbsp;
+				<% if(fileRealName != null) { %>
+					<a href="/downloadAction?file=<%= URLEncoder.encode(fileRealName,"UTF-8") %>">
+					<%= fileRealName %></a>
+				<% } else { %>
+					파일없음
+				<% } %>
+			</div>
+		</div>
+	  </div>
+	  
 	  <hr />
 	
       <div class="content">

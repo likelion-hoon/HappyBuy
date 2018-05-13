@@ -9,18 +9,23 @@ public class Board {
 	private int hit; // 조회수, default 0
 	private int recom; // 추천수, default 0
 	private String date; // 작성시간, default CURRENT_TIMESTAMP(현재시간)
-
+	private String fileName; // 게시판에 보여지는 파일이름
+	private String fileRealName; // 실제 파일이름
+	
 	public Board() {}
 
-	// 실제 입력받는건 title과 content과 name
-	public Board(String title, String content, String name) {
+	// 실제 입력받는건 title, content, name, fileName, fileRealName 5개
+	public Board(String title, String content, String name, String fileName, String fileRealName) {
 		this.title = title;
 		this.content = content;
 		this.name = name; 
+		this.fileName = fileName;
+		this.fileRealName = fileRealName;
 	}
 	
 	// 전체값 입력받는 생성자
-	public Board(int idx, String title, String content, String name, int hit, int recom, String date) {
+	public Board(int idx, String title, String content, String name, int hit, int recom, String date, String fileName,
+			String fileRealName) {
 		this.idx = idx;
 		this.title = title;
 		this.content = content;
@@ -28,6 +33,8 @@ public class Board {
 		this.hit = hit;
 		this.recom = recom;
 		this.date = date;
+		this.fileName = fileName;
+		this.fileRealName = fileRealName;
 	}
 
 	public int getIdx() {
@@ -85,5 +92,23 @@ public class Board {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileRealName() {
+		return fileRealName;
+	}
+
+	public void setFileRealName(String fileRealName) {
+		this.fileRealName = fileRealName;
+	}
+	
+	
 
 }

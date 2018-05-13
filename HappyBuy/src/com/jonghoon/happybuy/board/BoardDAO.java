@@ -32,10 +32,12 @@ public class BoardDAO {
 	// create.jsp에서 실행 -> 게시판 글 등록
 	public int insertBoard(Board board) {
 		try {
-			pstmt = conn.prepareStatement("insert into board(title, content, name) values (?,?,?)");
+			pstmt = conn.prepareStatement("insert into board(title, content, name, fileName, fileRealName) values (?,?,?,?,?)");
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
 			pstmt.setString(3, board.getName());
+			pstmt.setString(4, board.getFileName());
+			pstmt.setString(5, board.getFileRealName());
 			
 			return pstmt.executeUpdate(); 
 			
@@ -92,6 +94,8 @@ public class BoardDAO {
 				board.setHit(rs.getInt("hit"));
 				board.setRecom(rs.getInt("recom"));
 				board.setDate(rs.getString("date"));
+				board.setFileName(rs.getString("fileName"));
+				board.setFileRealName(rs.getString("fileRealName"));
 				
 				return board;
 			}
