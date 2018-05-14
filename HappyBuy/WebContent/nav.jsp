@@ -81,7 +81,7 @@
               <li><a href="/login.jsp">로그인</a></li>
               <li><a href="/registration.jsp">회원가입</a></li>
            <% } else { %>
-           	  <li><a href="/logout.jsp">로그아웃</a></li>
+           	  <li><a href="/logoutProc">로그아웃</a></li>
               <li><a href="/cart.jsp">장바구니</a></li>
               <li><a href="/myprofile.jsp">마이 프로필</a></li>
            <% } %>

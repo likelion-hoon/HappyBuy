@@ -64,10 +64,13 @@ public class BoardDAO {
 	// 게시판 글 수정
 	public int updateBoard(Board board) {
 		try {
-			pstmt = conn.prepareStatement("update board set title = ?, content = ? where idx = ?");
+			pstmt = conn.prepareStatement("update board set title = ?, content = ?, fileName = ?, fileRealName = ? where idx = ?");
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
-			pstmt.setInt(3, board.getIdx());
+			pstmt.setString(3, board.getFileName());
+			pstmt.setString(4, board.getFileRealName());
+			pstmt.setInt(5, board.getIdx());
+			
 			
 			return pstmt.executeUpdate();
 			

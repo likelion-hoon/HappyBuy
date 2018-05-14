@@ -14,19 +14,21 @@
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/nav.css">
+	
+	<style>
+		input {
+			width:50px;
+		}
+	</style>
 </head>
+
 <%
 	PrintWriter pw = response.getWriter(); 
 	if(session.getAttribute("userID")!=null) {
-		pw.println("<script>");
-		pw.println("alert('로그인된 상태입니다.')");
-		pw.println("location.href='index.jsp'");
-		pw.println("</script>");
+		pw.println("<script> alert('로그인된 상태입니다.'); location.href='index.jsp' </script>");
 		return;
 	}
 %>
-
-
 
 <body>
 	<%@ include file="nav.jsp" %>
@@ -34,10 +36,10 @@
 		<div class="row">
 			<div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
 				<h2 style="margin-bottom:30px;"> 회원가입 페이지 </h2>
-				<form action="/registration_proc.jsp" method="POST">
+				<form action="registrationProc" method="POST">
 					<div class="form-group">
 						<label for="title">이메일</label> 
-						<input type="email" class="form-control" id="email" name="email" placeholder="이메일">
+						<input type="email" class="form-control" id="email" name="email" placeholder="이메일" >
 					</div>
 	
 					<div class="form-group">

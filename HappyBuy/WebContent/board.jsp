@@ -22,12 +22,10 @@
 </head>
 
 <%
+	// 로그인 확인 코드
 	PrintWriter pw = response.getWriter(); 
 	if(session.getAttribute("userID")==null) {
-		pw.println("<script>");
-		pw.println("alert('로그인 하셔야 이용할 수 있습니다.')");
-		pw.println("location.href='login.jsp'");
-		pw.println("</script>");
+		pw.println("<script> alert('로그인 하셔야 이용할 수 있습니다.') location.href='login.jsp' </script>");
 		pw.close(); 
 		return; 
 	}

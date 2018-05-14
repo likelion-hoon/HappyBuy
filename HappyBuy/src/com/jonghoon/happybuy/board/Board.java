@@ -13,8 +13,17 @@ public class Board {
 	private String fileRealName; // 실제 파일이름
 	
 	public Board() {}
+	
+	// idx, title, content, fileName, fileRealName 5개 입력받음
+	public Board(int idx, String title, String content, String fileName, String fileRealName) {
+		this.idx = idx; 
+		this.title = title;
+		this.content = content;
+		this.fileName = fileName;
+		this.fileRealName = fileRealName;
+	}
 
-	// 실제 입력받는건 title, content, name, fileName, fileRealName 5개
+	// createBoard에서 사용, title, content, name, fileName, fileRealName 5개 입력받음
 	public Board(String title, String content, String name, String fileName, String fileRealName) {
 		this.title = title;
 		this.content = content;

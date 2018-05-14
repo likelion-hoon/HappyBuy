@@ -2,6 +2,7 @@
 <%@ page import="com.jonghoon.happybuy.board.BoardDAO, com.jonghoon.happybuy.board.Board" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="com.jonghoon.happybuy.file.downloadAction" %>
+<%@ page import="java.io.PrintWriter" %> 
 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -23,6 +24,13 @@
 	<title> view 페이지 </title>
 </head>
 <%
+	// 로그인 확인 코드
+	PrintWriter pw = response.getWriter(); 
+	if(session.getAttribute("userID")==null) {
+		pw.println("<script> alert('로그인 하셔야 이용할 수 있습니다.'); location.href='login.jsp' </script>");
+		pw.close(); 
+		return; 
+	}
 	int num = Integer.parseInt(request.getParameter("idx")); 
 	BoardDAO boardDAO = new BoardDAO(); 
 	boardDAO.increaseHit(num); // 조회수 증가
@@ -82,13 +90,13 @@
 	  <div class="lower">
 		  <!--  추천 버튼 -->
 	      <div class="recommend" style="font-size:30px;text-align:center;">
-	      	  <a href="/recommend.jsp?email=<%= session.getAttribute("userID") %>&idx=<%= board.getIdx() %>"><i class="fa fa-thumbs-up"></i></a>
+	      	  <a href="/recommendBoard?email=<%= session.getAttribute("userID") %>&idx=<%= board.getIdx() %>"><i class="fa fa-thumbs-up"></i></a>
 	      </div>
 	      
 	      <% if(session.getAttribute("userID").equals(board.getName())) { %>
 		      <div class="buttongroup" style="float:right;">
 				  <a href="/edit.jsp?idx=<%= board.getIdx() %>" class="btn btn-info">수정</a>
-				  <a href="/destroy.jsp?idx=<%= board.getIdx() %>" class="btn btn-info">삭제</a>
+				  <a href="/deleteBoard?idx=<%= board.getIdx() %>" class="btn btn-info">삭제</a>
 			      <a href="/board.jsp" class="btn btn-info">목록</a>
 		      </div>
 		  <% } else {%>

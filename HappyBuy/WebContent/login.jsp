@@ -10,6 +10,7 @@
 	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
 	<script src="js/jquery-3.3.1.min.js"></script>
 	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<script src="js/bootstrap.min.js"></script>
@@ -40,25 +41,42 @@
 	<%@ include file="nav.jsp" %>
 	<div class="container" style="margin-top:60px;"> 
 		<div class="row">
-			<div class="col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-offset-8">
-				<h2 style="margin-bottom:30px;"> 로그인 페이지 </h2>
-				<form action="login_proc.jsp" method="POST">
+			<div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-offset-6">
+				<h2 style="margin-bottom:30px;">로그인 페이지</h2>
+				<hr />
+				
+				<!--  회원, 관리자 로그인 구분 radio button -->
+				<div class="user_select">
+			    	<label for="customer">
+			    		<input type="radio" class="radio" name="user" id="customer" value="Y" checked> 회원
+			    	</label>
+			    	<label for="admin">
+			    		<input type="radio" class="radio" name="user" id="admin" value="N" > 관리자
+			    	</label>
+	    		</div>
+				
+				<form action="loginProc" method="POST">
 					<div class="form-group">
-						<label for="email">이메일</label>
-						<input type="email" class="form-control" id="email" name="email"
-							placeholder="이메일" size="35">
+						<input type="email" class="form-control col-sm-3" id="email" name="email"
+							placeholder="이메일" style="width:60%;">
 					</div>
 					<div class="form-group">
-						<label for="password">비밀번호</label> 
 						<input type="password" class="form-control" id="password" name="password"
-							placeholder="비밀번호" size="35">
+							placeholder="비밀번호" style="width:60%;">
 					</div>
 					
+					<!-- 세션 객체의 시간을 늘린다. -->
 					<div class="form-group">
 						<input type="checkbox" id="checkbox" name="checkbox" value="checkbox" class="form-check-input"> 로그인 상태 유지<br>
 					</div>
 					
+					<div class="links">
+						<p> <a href="#">아이디 찾기</a>&nbsp; |&nbsp; <a href="#">비밀번호 찾기</a> &nbsp;|&nbsp; <a href="/registration.jsp">회원가입</a></p>
+					</div>
+					
 					<button style="margin-top:15px;" type="submit" class="btn btn-primary">로그인</button>
+					
+					<hr />
 				</form>
 			</div>
 		</div>
