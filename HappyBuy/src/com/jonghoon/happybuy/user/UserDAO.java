@@ -98,6 +98,42 @@ public class UserDAO {
 		return -1; 
 	}
 	
+	// email을 파라메타로 받아서 idx를 리턴하는 함수 만들기 
+	public int getUserIdx(String email) {
+		try {
+			pstmt = conn.prepareStatement("select idx from user where email = ?");
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()) {
+				return rs.getInt(1); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return -1; 
+	}
+	
+	// board_id를 파라메타로 받아서 email을 리턴하는 함수 만들기 
+	public String getUserEmail(int board_id) {
+		
+		try {
+			pstmt = conn.prepareStatement("select email from user where idx = (select user_id from board where idx = ?)");
+			pstmt.setInt(1, board_id); 
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()) {
+				return rs.getString(1); // 해당 email 값 리턴
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		return null; // 값을 찾을 수 없을 때 null리턴
+	}
+	
 	// 모든 연결자원 접속종료 
 	public void close()  {
 		if(rs != null) {

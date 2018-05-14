@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.jonghoon.happybuy.board.BoardDAO, com.jonghoon.happybuy.board.Board" %>
+<%@ page import="com.jonghoon.happybuy.user.UserDAO" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="com.jonghoon.happybuy.file.downloadAction" %>
 <%@ page import="java.io.PrintWriter" %> 
@@ -33,11 +34,11 @@
 	}
 	int num = Integer.parseInt(request.getParameter("idx")); 
 	BoardDAO boardDAO = new BoardDAO(); 
+	UserDAO userDAO = new UserDAO(); 
 	boardDAO.increaseHit(num); // 조회수 증가
 	Board board = boardDAO.getBoard(num);
 	
 	String fileRealName = board.getFileRealName();
-	boardDAO.close(); 
 %>
 
 <body>
@@ -62,7 +63,7 @@
 		
 		<div class="row" style="margin-top:2px;">
 		  <div class="col-md-5">
-			<label> 작성자 </label>&nbsp; : &nbsp;<%= board.getName() %> &nbsp;&nbsp;|&nbsp;&nbsp;
+			<label> 작성자 </label>&nbsp; : &nbsp;<%= userDAO.getUserEmail(board.getIdx()) %> &nbsp;&nbsp;|&nbsp;&nbsp;
 			<label> 조회수 </label>&nbsp; : &nbsp;<%= board.getHit() %> &nbsp;&nbsp;|&nbsp;&nbsp;
 			<label> 추천수 </label>&nbsp; : &nbsp;<%= board.getRecom()%>
 		  </div>
@@ -93,7 +94,7 @@
 	      	  <a href="/recommendBoard?email=<%= session.getAttribute("userID") %>&idx=<%= board.getIdx() %>"><i class="fa fa-thumbs-up"></i></a>
 	      </div>
 	      
-	      <% if(session.getAttribute("userID").equals(board.getName())) { %>
+	      <% if(session.getAttribute("userID").equals(userDAO.getUserEmail(board.getIdx()))) { %>
 		      <div class="buttongroup" style="float:right;">
 				  <a href="/edit.jsp?idx=<%= board.getIdx() %>" class="btn btn-info">수정</a>
 				  <a href="/deleteBoard?idx=<%= board.getIdx() %>" class="btn btn-info">삭제</a>
@@ -106,6 +107,11 @@
 	      <% } %>
       </div>
      
+     
+      <% 
+      	 userDAO.close(); 
+      	 boardDAO.close(); 
+      %>
 	  댓글 기능 추가 예정
 	</div>
 </body>

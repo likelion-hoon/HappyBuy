@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jonghoon.happybuy.user.UserDAO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -34,16 +35,19 @@ public class createBoard extends HttpServlet {
 		String encoding = "UTF-8"; 
 		
 		MultipartRequest multipartRequest = new MultipartRequest(request, directory, maxSize, encoding, new DefaultFileRenamePolicy());
+		BoardDAO boardDAO = new BoardDAO(); 
+		UserDAO userDAO = new UserDAO(); 
 		
 		// input값 추출하기
+		String email = multipartRequest.getParameter("email"); 
+		
 		String title = multipartRequest.getParameter("title"); 
 		String content = multipartRequest.getParameter("content"); 
-		String name = multipartRequest.getParameter("name"); 
 		String fileName = multipartRequest.getOriginalFileName("file");
 		String fileRealName = multipartRequest.getFilesystemName("file");
+		int user_id = userDAO.getUserIdx(email); 
 		
-		BoardDAO boardDAO = new BoardDAO(); 
-		Board board = new Board(title, content, name, fileName, fileRealName);
+		Board board = new Board(title, content, fileName, fileRealName, user_id);
 		
 		if(boardDAO.insertBoard(board) > 0) {
 			out.println("<script> alert('글이 성공적으로 작성되었습니다.'); location.href='board.jsp' </script>");

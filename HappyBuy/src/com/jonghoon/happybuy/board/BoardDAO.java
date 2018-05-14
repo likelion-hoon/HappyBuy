@@ -32,12 +32,18 @@ public class BoardDAO {
 	// create.jsp에서 실행 -> 게시판 글 등록
 	public int insertBoard(Board board) {
 		try {
-			pstmt = conn.prepareStatement("insert into board(title, content, name, fileName, fileRealName) values (?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into board(title, content, fileName, fileRealName, user_id) values (?,?,?,?,?)");
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
-			pstmt.setString(3, board.getName());
-			pstmt.setString(4, board.getFileName());
-			pstmt.setString(5, board.getFileRealName());
+			pstmt.setString(3, board.getFileName());
+			pstmt.setString(4, board.getFileRealName());
+			pstmt.setInt(5, board.getUser_id());
+			
+			System.out.println(board.getTitle());
+			System.out.println(board.getContent());
+			System.out.println(board.getFileName());
+			System.out.println(board.getFileRealName());
+			System.out.println(board.getUser_id());
 			
 			return pstmt.executeUpdate(); 
 			
@@ -53,7 +59,9 @@ public class BoardDAO {
 		try {
 			pstmt = conn.prepareStatement("delete from board where idx=?");
 			pstmt.setInt(1, idx);
-			return pstmt.executeUpdate(); 
+			
+			return pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,7 +101,6 @@ public class BoardDAO {
 				board.setIdx(rs.getInt("idx"));
 				board.setTitle(rs.getString("title"));
 				board.setContent(rs.getString("content"));
-				board.setName(rs.getString("name"));
 				board.setHit(rs.getInt("hit"));
 				board.setRecom(rs.getInt("recom"));
 				board.setDate(rs.getString("date"));
@@ -122,14 +129,12 @@ public class BoardDAO {
 				board.setIdx(rs.getInt("idx"));
 				board.setTitle(rs.getString("title"));
 				board.setContent(rs.getString("content"));
-				board.setName(rs.getString("name"));
 				board.setHit(rs.getInt("hit"));
 				board.setRecom(rs.getInt("recom"));
 				board.setDate(rs.getString("date"));
 				list.add(board);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
@@ -175,6 +180,7 @@ public class BoardDAO {
 		
 		return -1;
 	}
+	
 
 	public void close() {
 		if(rs != null) {

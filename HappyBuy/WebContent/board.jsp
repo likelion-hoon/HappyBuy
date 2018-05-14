@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@ page import="com.jonghoon.happybuy.board.BoardDAO, com.jonghoon.happybuy.board.Board" %>
+<%@ page import="com.jonghoon.happybuy.user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.List" %>
 
@@ -59,18 +60,23 @@
 			  <tbody>
 					<%	
 						BoardDAO boardDAO = new BoardDAO(); 
+						UserDAO userDAO = new UserDAO(); 
 						List<Board> list = boardDAO.getBoardList();
 						for(int i=0; i<list.size(); i++) { 
 					%>
 						<tr>
 							<td> <%= list.get(i).getIdx() %> </td>
 							<td> <a href="/show.jsp?idx=<%= list.get(i).getIdx() %>"> <%= list.get(i).getTitle() %> </a></td>
-							<td> <%= list.get(i).getName() %> </td>
+							<td> <%= userDAO.getUserEmail(list.get(i).getIdx()) %> </td>
 							<td> <%= list.get(i).getHit() %> </td>
 							<td> <%= list.get(i).getRecom() %> </td>
 							<td> <%= list.get(i).getDate().substring(0,19) %></td>
 						</tr>
-					<% } %>
+					<% 
+						} 
+						userDAO.close(); 
+				      	boardDAO.close();
+					%>
 			   </tbody>
 			</table>
 			<a href="/new.jsp" class="btn btn-primary" style="float:right;">글 쓰기</a>

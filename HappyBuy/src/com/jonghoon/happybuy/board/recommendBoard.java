@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jonghoon.happybuy.user.UserDAO;
+
 @WebServlet("/recommendBoard")
 public class recommendBoard extends HttpServlet {
 	
@@ -22,10 +24,11 @@ public class recommendBoard extends HttpServlet {
 		int idx = Integer.parseInt(request.getParameter("idx")); 
 		PrintWriter out = response.getWriter(); 
 		BoardDAO boardDAO = new BoardDAO(); 
+		UserDAO userDAO = new UserDAO(); 
 		Board board = boardDAO.getBoard(idx);
 		
 		// 본인글 추천 방지
-		if(email.equals(board.getName())) {
+		if(email.equals(userDAO.getUserEmail(board.getIdx()))) {
 			out.println("<script> alert('자신의 글은 추천할 수 없습니다.'); location.href='show.jsp?idx="+idx+"'</script>");
 			out.close(); 
 			boardDAO.close(); 

@@ -49,12 +49,11 @@
 						<textarea class="form-control" id="content" name="content" placeholder="글 내용"></textarea>
 					</div>
 					
+					<input type="hidden" id="email" name="email" value=<%= session.getAttribute("userID") %> />
+					
 					<div class="form-group">
 						<input type="file" name="file">
 					</div>
-					
-					<!-- 작성자 이름이 들어감 -->
-					<input type="hidden" id="name" name="name" value="<%= session.getAttribute("userID") %>" /> 
 					
 					<a href="/board.jsp" class="btn btn-info">돌아가기</a>
 					<button type="submit" class="btn btn-primary">작성</button>
