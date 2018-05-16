@@ -55,11 +55,11 @@
 		<div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
 			
 			<h2> 프로필 페이지 </h2>
-			
-			<table class="table table-hover borderless" style="margin-top:30px;">
+			 
+			<table class="table borderless" style="margin-top:30px;">
 				<tr>
 					<th>프로필 이미지</th>
-					<td><%= user.getProfilePath() %></td>
+					<td><img src="<%= userDAO.getProfile(user_id) %>" width="100px" height="100px" alt="error"/></td>
 				</tr>
 			
 				<tr>
@@ -111,8 +111,10 @@
 					</div>
 				</div>
 			</div>
-			
-			<a href="/profileEdit.jsp" class="btn btn-primary" style="margin-top:30px;margin-left:5px;"> 회원정보 수정</a>
+			<div class="btn_list" style="margin-top:30px;">
+				<a href="<%= application.getContextPath() %>/board.jsp" class="btn btn-info">돌아가기</a>
+				<a href="<%= application.getContextPath() %>/profileEdit.jsp" class="btn btn-primary"> 회원정보 수정</a>
+			</div>
 		</div>
 	</div>
 </body>

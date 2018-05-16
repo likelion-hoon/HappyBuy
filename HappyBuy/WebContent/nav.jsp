@@ -71,7 +71,7 @@
             </li>
           </ul>
         </li>
-        <li><a href="/board.jsp">QnA 게시판</a></li>
+        <li><a href="<%= application.getContextPath() %>/board.jsp">QnA 게시판</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -83,12 +83,12 @@
           <% } %>
           <ul class="dropdown-menu">
            <% if(session.getAttribute("userID") == null) { %>
-              <li><a href="/login.jsp">로그인</a></li>
-              <li><a href="/registration.jsp">회원가입</a></li>
+              <li><a href="<%= application.getContextPath() %>/login.jsp">로그인</a></li>
+              <li><a href="<%= application.getContextPath() %>/registration.jsp">회원가입</a></li>
            <% } else { %>
-           	  <li><a href="/logoutProc">로그아웃</a></li>
-              <li><a href="/cart.jsp">장바구니</a></li>
-              <li><a href="/myprofile.jsp?idx=<%= userDAO.getUserIdx((String)session.getAttribute("userID")) %>">마이 프로필</a></li>
+           	  <li><a href="<%= application.getContextPath() %>/logoutProc">로그아웃</a></li>
+              <li><a href="<%= application.getContextPath() %>/cart.jsp">장바구니</a></li>
+              <li><a href="<%= application.getContextPath() %>/myprofile.jsp?idx=<%= userDAO.getUserIdx((String)session.getAttribute("userID")) %>">마이 프로필</a></li>
            <% } %>
           </ul>
         </li>

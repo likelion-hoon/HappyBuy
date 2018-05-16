@@ -55,11 +55,14 @@
 						<input type="file" name="file">
 					</div>
 					
-					<a href="/board.jsp" class="btn btn-info">돌아가기</a>
+					<a href="<%= application.getContextPath() %>/board.jsp" class="btn btn-info">돌아가기</a>
 					<button type="submit" class="btn btn-primary">작성</button>
 				</form>
 			</div>
 		</div>
 	 </div>
+	 <%
+		userDAO.close(); 
+	 %>
 </body>
 </html>

@@ -77,13 +77,14 @@ public class UserDAO {
 	public int insertUser(User user) {
 		
 		try {
-			pstmt = conn.prepareStatement("insert into user(email, password, number, gender, address, pnumber) values (?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into user(email, password, number, gender, address, pnumber, profilePath) values (?,?,?,?,?,?,?)");
 			pstmt.setString(1, user.getEmail());
 			pstmt.setString(2, user.getPassword());
 			pstmt.setString(3, user.getNumber());
 			pstmt.setBoolean(4, user.isGender());
 			pstmt.setString(5, user.getAddress());
 			pstmt.setString(6, user.getPnumber());
+			pstmt.setString(7, "");
 			
 			return pstmt.executeUpdate();
 			
@@ -129,6 +130,31 @@ public class UserDAO {
 		} 
 		
 		return null; // 값을 찾을 수 없을 때 null리턴
+	}
+	
+	public String getProfile(int user_id) {
+		try {
+			pstmt = conn.prepareStatement("select profilePath from user where idx = ?");
+			pstmt.setInt(1,user_id); 
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()) {
+				if(rs.getString(1).equals("")) {
+					return "http://localhost:8080/HappyBuy/images/default.png"; 
+				}
+				return "http://localhost:8080/HappyBuy/images".concat(rs.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		return "http://localhost:8080/HappyBuy/images/default.png"; 
+	}
+	
+	// 유저 정보 바꾸는 메소드 
+	public void changeUserInformation() {
+		
 	}
 	
 	// 모든 연결자원 접속종료 

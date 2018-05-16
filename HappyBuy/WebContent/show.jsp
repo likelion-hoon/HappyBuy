@@ -27,11 +27,13 @@
 <%
 	// 로그인 확인 코드
 	PrintWriter pw = response.getWriter(); 
+
 	if(session.getAttribute("userID")==null) {
 		pw.println("<script> alert('로그인 하셔야 이용할 수 있습니다.'); location.href='login.jsp' </script>");
 		pw.close(); 
 		return; 
 	}
+	
 	int num = Integer.parseInt(request.getParameter("idx")); 
 	BoardDAO boardDAO = new BoardDAO(); 
 	boardDAO.increaseHit(num); // 조회수 증가
@@ -72,7 +74,7 @@
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 				<label> 파일명 </label>&nbsp; : &nbsp;
 				<% if(fileRealName != null) { %>
-					<a href="/downloadAction?file=<%= URLEncoder.encode(fileRealName,"UTF-8") %>">
+					<a href="<%= application.getContextPath() %>/downloadAction?file=<%= URLEncoder.encode(fileRealName,"UTF-8") %>">
 					<%= fileRealName %></a>
 				<% } else { %>
 					파일없음
@@ -90,27 +92,28 @@
 	  <div class="lower">
 		  <!--  추천 버튼 -->
 	      <div class="recommend" style="font-size:30px;text-align:center;">
-	      	  <a href="/recommendBoard?email=<%= session.getAttribute("userID") %>&idx=<%= board.getIdx() %>"><i class="fa fa-thumbs-up"></i></a>
+	      	  <a href="<%= application.getContextPath() %>/recommendBoard?email=<%= session.getAttribute("userID") %>&idx=<%= board.getIdx() %>"><i class="fa fa-thumbs-up"></i></a>
 	      </div>
 	      
 	      <% if(session.getAttribute("userID").equals(userDAO.getUserEmail(board.getIdx()))) { %>
 		      <div class="buttongroup" style="float:right;">
-				  <a href="/edit.jsp?idx=<%= board.getIdx() %>" class="btn btn-info">수정</a>
-				  <a href="/deleteBoard?idx=<%= board.getIdx() %>" class="btn btn-info">삭제</a>
-			      <a href="/board.jsp" class="btn btn-info">목록</a>
+				  <a href="<%= application.getContextPath() %>/edit.jsp?idx=<%= board.getIdx() %>" class="btn btn-info">수정</a>
+				  <a href="<%= application.getContextPath() %>/deleteBoard?idx=<%= board.getIdx() %>" class="btn btn-info"
+				  onclick="return confirm('게시글을 삭제하시겠습니까?');">삭제</a>
+			      <a href="<%= application.getContextPath() %>/board.jsp" class="btn btn-info">목록</a>
 		      </div>
 		  <% } else {%>
 		      <div class="buttongroup" style="float:right;">
-			      <a href="/board.jsp" class="btn btn-info">목록</a>
+			      <a href="<%= application.getContextPath() %>/board.jsp" class="btn btn-info">목록</a>
 		      </div>
 	      <% } %>
       </div>
-     
-     
       <% 
       	 userDAO.close(); 
       	 boardDAO.close(); 
       %>
+      
+      
 	  댓글 기능 추가 예정
 	</div>
 </body>

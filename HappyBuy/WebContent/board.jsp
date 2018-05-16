@@ -4,6 +4,8 @@
 <%@ page import="com.jonghoon.happybuy.user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.List" %>
+<!-- 불필요한 줄 바꿈 공백 문자가 제거 -->
+<%@ page trimDirectiveWhitespaces="true" %>
 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
@@ -20,6 +22,7 @@
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/nav.css">
+	<title> 게시판 </title>
 </head>
 
 <%
@@ -64,7 +67,7 @@
 					%>
 						<tr>
 							<td> <%= list.get(i).getIdx() %> </td>
-							<td> <a href="/show.jsp?idx=<%= list.get(i).getIdx() %>"> <%= list.get(i).getTitle() %> </a></td>
+							<td> <a href="<%= application.getContextPath() %>/show.jsp?idx=<%= list.get(i).getIdx() %>"> <%= list.get(i).getTitle() %> </a></td>
 							<td> <%= userDAO.getUserEmail(list.get(i).getIdx()) %> </td>
 							<td> <%= list.get(i).getHit() %> </td>
 							<td> <%= list.get(i).getRecom() %> </td>
@@ -77,7 +80,7 @@
 					%>
 			   </tbody>
 			</table>
-			<a href="/new.jsp" class="btn btn-primary" style="float:right;">글 쓰기</a>
+			<a href="<%= application.getContextPath() %>/new.jsp" class="btn btn-primary" style="float:right;">글 쓰기</a>
 		</div>
 	</div>
 </body>
