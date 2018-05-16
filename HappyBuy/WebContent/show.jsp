@@ -34,7 +34,6 @@
 	}
 	int num = Integer.parseInt(request.getParameter("idx")); 
 	BoardDAO boardDAO = new BoardDAO(); 
-	UserDAO userDAO = new UserDAO(); 
 	boardDAO.increaseHit(num); // 조회수 증가
 	Board board = boardDAO.getBoard(num);
 	

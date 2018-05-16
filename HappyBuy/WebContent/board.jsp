@@ -26,9 +26,8 @@
 	// 로그인 확인 코드
 	PrintWriter pw = response.getWriter(); 
 	if(session.getAttribute("userID")==null) {
-		pw.println("<script> alert('로그인 하셔야 이용할 수 있습니다.') location.href='login.jsp' </script>");
+		pw.println("<script> alert('로그인 하셔야 이용할 수 있습니다.'); location.href='login.jsp' </script>");
 		pw.close(); 
-		return; 
 	}
 %>
 
@@ -60,7 +59,6 @@
 			  <tbody>
 					<%	
 						BoardDAO boardDAO = new BoardDAO(); 
-						UserDAO userDAO = new UserDAO(); 
 						List<Board> list = boardDAO.getBoardList();
 						for(int i=0; i<list.size(); i++) { 
 					%>

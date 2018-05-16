@@ -42,6 +42,7 @@
 	<div class="container" style="margin-top:60px;"> 
 		<div class="row">
 			<div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-offset-6">
+			
 				<h2 style="margin-bottom:30px;">로그인 페이지</h2>
 				<hr />
 				

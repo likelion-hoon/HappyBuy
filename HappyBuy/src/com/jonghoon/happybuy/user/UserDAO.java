@@ -49,10 +49,10 @@ public class UserDAO {
 	}
 
 	// 해당 email을 가지고 있는 user를 return 해주는 함수
-	public User getUser(String email) {
+	public User getUser(int user_id) {
 		try {
-			pstmt = conn.prepareStatement("select * from user where email = ?");
-			pstmt.setString(1, email);
+			pstmt = conn.prepareStatement("select * from user where idx = ?");
+			pstmt.setInt(1, user_id);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -68,14 +68,12 @@ public class UserDAO {
 				return user;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 	
-	// registraion_proc.jsp에서 user정보를 db에 insert하는 함수
+	// registrationProc.java에서 user정보를 db에 insert하는 함수
 	public int insertUser(User user) {
 		
 		try {
@@ -93,7 +91,6 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		// 값을 집어넣고 return true를 실행함
-		
 		
 		return -1; 
 	}

@@ -11,6 +11,7 @@ public class User {
 	private String address;    // 주소, 배송을 위해서 필요함
 	private String pnumber;    // 핸드폰 번호, 문자 전송을 위해서 필요함
 	private String point;      // 활동 점수, 홈페이지 활동을 하면 증가함, default 0 설정
+	private String profilePath; // 이미지 프로필 경로 저장
 	
 	public User() { }
 	
@@ -29,8 +30,9 @@ public class User {
 		this.pnumber = pnumber;
 	}
 	
+	// 전체 생성자 저장
 	public User(int idx, String email, String password, String number, boolean gender, String address,
-			String pnumber, String point) {
+			String pnumber, String point, String profilePath) {
 		
 		this.idx = idx;
 		this.email = email;
@@ -40,6 +42,7 @@ public class User {
 		this.address = address;
 		this.pnumber = pnumber;
 		this.point = point;
+		this.profilePath = profilePath; 
 	}
 	
 	public int getIdx() {
@@ -90,5 +93,11 @@ public class User {
 	}
 	public void setPoint(String point) {
 		this.point = point;
+	}
+	public String getProfilePath() {
+		return profilePath;
+	}
+	public void setProfilePath(String profilePath) {
+		this.profilePath = profilePath;
 	}
 }

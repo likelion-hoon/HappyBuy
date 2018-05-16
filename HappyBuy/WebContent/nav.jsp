@@ -1,4 +1,9 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page import="com.jonghoon.happybuy.user.UserDAO,com.jonghoon.happybuy.user.User"%>
+
+<%
+	UserDAO userDAO = new UserDAO(); 
+%>
 
  <nav class="navbar navbar-default">
   
@@ -83,7 +88,7 @@
            <% } else { %>
            	  <li><a href="/logoutProc">로그아웃</a></li>
               <li><a href="/cart.jsp">장바구니</a></li>
-              <li><a href="/myprofile.jsp">마이 프로필</a></li>
+              <li><a href="/myprofile.jsp?idx=<%= userDAO.getUserIdx((String)session.getAttribute("userID")) %>">마이 프로필</a></li>
            <% } %>
           </ul>
         </li>
