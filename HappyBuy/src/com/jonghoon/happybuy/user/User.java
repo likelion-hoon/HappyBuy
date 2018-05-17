@@ -15,12 +15,13 @@ public class User {
 	
 	public User() { }
 	
-	// 로그인할때 jsp:setProperty 에서 사용 (login_proc.jsp)
+	// 로그인할때 사용
 	public User(String email, String password) {
 		this.email = email;
 		this.password = password;
 	}
 	
+	// 회원가입할때 사용
 	public User(String email, String password, String number, boolean gender, String address, String pnumber) {
 		this.email = email;
 		this.password = password;
@@ -28,6 +29,15 @@ public class User {
 		this.gender = gender;
 		this.address = address;
 		this.pnumber = pnumber;
+	}
+	
+	// 회원정보 수정할때 사용
+	public User(int idx, String password, String address, String pnumber, String profilePath) {
+		this.idx = idx;
+		this.password = password;
+		this.address = address;
+		this.pnumber = pnumber;
+		this.profilePath = profilePath;
 	}
 	
 	// 전체 생성자 저장

@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page
-	import="com.jonghoon.happybuy.user.UserDAO,com.jonghoon.happybuy.user.User"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.jonghoon.happybuy.user.UserDAO,com.jonghoon.happybuy.user.User"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="java.net.URLDecoder" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
@@ -41,11 +41,13 @@
 		<div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
 			<h2 style="margin-bottom:40px;"> 프로필 수정 페이지</h2>
 			
-			<form action="profileUpdate?idx=<%= user_id %> %>" method="POST" enctype="multipart/form-data">
+			<%-- <%=  URLDecoder.decode(userDAO.getProfile(user_id),"UTF-8") %> --%>
+			<form action="<%= application.getContextPath() %>/profileUpdate?idx=<%= user_id %>" method="POST" enctype="multipart/form-data">
 				<div class="form-group"> 
-					<img src="<%= userDAO.getProfile(user_id) %>" width="100px" height="100px" alt="error"/><br>
-					<label for="now_password"> 현재 프로필 사진 </label>
-					<input type="file" name="file" /> 
+					<img src="<%= URLDecoder.decode(userDAO.getProfile(user_id),"UTF-8") %>" width="100px" height="100px" alt="error"/><br>
+					<label for="now_profile"> 현재 프로필 사진 </label>
+				
+					<input type="file" name="file" /> <span style="color:red;">(영문,숫자로 된 파일을 올려주세요!)</span> 
 				</div>
 				<div class="form-group">
 					<label for="now_password"> 현재 비밀번호 (현재 비밀번호를 입력하셔야 수정이 가능합니다.)</label> 

@@ -1,12 +1,15 @@
 <!--  자신의 정보를 볼수 있는 페이지 -->
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.jonghoon.happybuy.user.UserDAO,com.jonghoon.happybuy.user.User"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="java.net.URLDecoder" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	
 	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
@@ -56,6 +59,7 @@
 			
 			<h2> 프로필 페이지 </h2>
 			 
+			<%-- <%= userDAO.getProfile(user_id) %> --%>
 			<table class="table borderless" style="margin-top:30px;">
 				<tr>
 					<th>프로필 이미지</th>

@@ -1,5 +1,7 @@
 package com.jonghoon.happybuy.user;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,6 +67,7 @@ public class UserDAO {
 				user.setAddress(rs.getString("address"));
 				user.setPnumber(rs.getString("pnumber"));
 				user.setPoint(rs.getString("point"));
+				user.setProfilePath(rs.getString("profilePath"));
 				return user;
 			}
 		} catch (SQLException e) {
@@ -142,10 +145,10 @@ public class UserDAO {
 				if(rs.getString(1).equals("")) {
 					return "http://localhost:8080/HappyBuy/images/default.png"; 
 				}
-				return "http://localhost:8080/HappyBuy/images".concat(rs.getString(1));
+				return "http://localhost:8080/HappyBuy/images/"+URLEncoder.encode(rs.getString(1),"UTF-8");
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} 
 		
@@ -153,8 +156,26 @@ public class UserDAO {
 	}
 	
 	// 유저 정보 바꾸는 메소드 
-	public void changeUserInformation() {
+	// 바꿔야 될 값은 new_password, address, pnumber, fileName, fileRealName
+	public int changeUserInformation(User user) {
 		
+		String sql = "update user set password = ?, address = ?, pnumber = ?, profilePath = ? where idx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getPassword());
+			pstmt.setString(2, user.getAddress());
+			pstmt.setString(3,  user.getPnumber());
+			pstmt.setString(4, user.getProfilePath());
+			pstmt.setInt(5,  user.getIdx());
+			
+			return pstmt.executeUpdate(); 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		return -1; 
 	}
 	
 	// 모든 연결자원 접속종료 
