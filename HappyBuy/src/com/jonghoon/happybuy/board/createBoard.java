@@ -45,7 +45,7 @@ public class createBoard extends HttpServlet {
 		
 		File file = multipartRequest.getFile("file");
 		// input값 추출하기
-		String email = multipartRequest.getParameter("email"); 
+		String email = multipartRequest.getParameter("email");  // email은 user_id 얻어오는데 사용
 		String title = multipartRequest.getParameter("title"); 
 		String content = multipartRequest.getParameter("content"); 
 		String fileName = multipartRequest.getOriginalFileName("file");

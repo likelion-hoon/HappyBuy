@@ -72,7 +72,7 @@
 					</div>
 					
 					<div class="links">
-						<p> <a href="#">아이디 찾기</a>&nbsp; |&nbsp; <a href="#">비밀번호 찾기</a> &nbsp;|&nbsp; <a href="/registration.jsp">회원가입</a></p>
+						<p> <a href="#">아이디 찾기</a>&nbsp; |&nbsp; <a href="#">비밀번호 찾기</a> &nbsp;|&nbsp; <a href="<%= application.getContextPath() %>/registration.jsp">회원가입</a></p>
 					</div>
 					
 					<button style="margin-top:15px;" type="submit" class="btn btn-primary">로그인</button>

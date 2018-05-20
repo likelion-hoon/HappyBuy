@@ -16,9 +16,6 @@ public class loginProc extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
@@ -38,8 +35,7 @@ public class loginProc extends HttpServlet {
 		
 		if(userDAO.login(email, password)) {
 			session.setAttribute("userID", email);
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);
+			out.println("<script> alert('로그인에 성공하였습니다.'); location.href='index.jsp' </script>");
 		} else {
 			out.println("<script> alert('입력값이 틀렸습니다.'); history.go(-1) </script>");
 		}

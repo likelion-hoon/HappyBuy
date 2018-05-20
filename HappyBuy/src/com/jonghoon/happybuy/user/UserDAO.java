@@ -99,6 +99,26 @@ public class UserDAO {
 		return -1; 
 	}
 	
+	// Reply의 user_id를 파라메타로 받아서 email을 리턴하는 함수 만들기
+	public String getEmailInUserId(int user_id) {
+		
+		String sql = "select email from user where idx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, user_id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getString(1); 
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	// email을 파라메타로 받아서 idx를 리턴하는 함수 만들기 
 	public int getUserIdx(String email) {
 		try {
@@ -117,7 +137,7 @@ public class UserDAO {
 	}
 	
 	// board_id를 파라메타로 받아서 email을 리턴하는 함수 만들기 
-	public String getUserEmail(int board_id) {
+	public String getEmailInBoardId(int board_id) {
 		
 		try {
 			pstmt = conn.prepareStatement("select email from user where idx = (select user_id from board where idx = ?)");

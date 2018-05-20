@@ -28,7 +28,7 @@ public class recommendBoard extends HttpServlet {
 		Board board = boardDAO.getBoard(idx);
 		
 		// 본인글 추천 방지
-		if(email.equals(userDAO.getUserEmail(board.getIdx()))) {
+		if(email.equals(userDAO.getEmailInBoardId(board.getIdx()))) {
 			out.println("<script> alert('자신의 글은 추천할 수 없습니다.'); location.href='show.jsp?idx="+idx+"'</script>");
 			out.close(); 
 			boardDAO.close(); 

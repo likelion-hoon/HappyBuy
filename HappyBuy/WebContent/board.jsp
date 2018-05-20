@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-    
 <%@ page import="com.jonghoon.happybuy.board.BoardDAO, com.jonghoon.happybuy.board.Board" %>
 <%@ page import="com.jonghoon.happybuy.user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.List" %>
-<!-- 불필요한 줄 바꿈 공백 문자가 제거 -->
-<%@ page trimDirectiveWhitespaces="true" %>
 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
@@ -68,13 +65,14 @@
 						<tr>
 							<td> <%= list.get(i).getIdx() %> </td>
 							<td> <a href="<%= application.getContextPath() %>/show.jsp?idx=<%= list.get(i).getIdx() %>"> <%= list.get(i).getTitle() %> </a></td>
-							<td> <%= userDAO.getUserEmail(list.get(i).getIdx()) %> </td>
+							<td> <%= userDAO.getEmailInBoardId(list.get(i).getIdx()) %> </td>
 							<td> <%= list.get(i).getHit() %> </td>
 							<td> <%= list.get(i).getRecom() %> </td>
 							<td> <%= list.get(i).getDate().substring(0,19) %></td>
 						</tr>
 					<% 
 						} 
+						pw.close(); 
 						userDAO.close(); 
 				      	boardDAO.close();
 					%>

@@ -12,8 +12,7 @@ public class Board {
 	private String fileRealName; // 실제 파일이름
 	private int user_id; // FK(참조키)
 
-	public Board() {
-	}
+	public Board() {}
 
 	// updateBoard에서 사용, idx, title, content, fileName, fileRealName 5개 입력받음
 	public Board(int idx, String title, String content, String fileName, String fileRealName) {
