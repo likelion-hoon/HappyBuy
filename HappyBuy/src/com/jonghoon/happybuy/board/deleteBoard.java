@@ -38,7 +38,6 @@ public class deleteBoard extends HttpServlet {
 		}
 		
 		// 자원반납
-		boardDAO.close(); 
 		out.close(); 
 	}
 }

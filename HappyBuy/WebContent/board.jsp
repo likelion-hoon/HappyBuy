@@ -34,16 +34,28 @@
 <body>
 	<%@ include file="nav.jsp" %>
 	<div class="container" style="margin-top:50px;"> 
-	
 		<div class="upper_board">
-			<div class="search row col-xs-offset-6 col-xs-6 col-sm-offset-6 col-sm-6 col-md-offset-8 col-md-4 col-lg-offset-8 col-lg-4" style="margin-bottom:30px;">
+			<div class="search row col-xs-offset-7 col-xs-5 col-sm-offset-7 col-sm-5 col-md-offset-7 col-md-5 col-lg-offset-7 col-lg-5" style="margin-bottom:30px;">
 				<form action="/board.jsp" method="POST" id="searchForm">
-					<input type="text" name="searchKeyword" class="form-control col-xs-2 col-sm-2" style="width:180px;" placeholder="제목, 내용을 입력하세요"/> 
-					<button type="submit" class="btn btn-primary" style="margin-left:8px">검색</button> 
+					<div class="col-md-1">
+						<select name="opt">
+						  <option value="1" selected>제목</option>
+						  <option value="2">내용</option>
+						  <option value="3">작성자</option>
+						</select>
+					</div>
+					<div class="col-md-offset-1 col-md-3">
+						<input type="text" name="searchKeyword" class="form-control col-xs-2 col-sm-2" style="width:180px;" placeholder="검색어를 입력하세요"/>
+					</div> 
+					<div class="col-md-offset-2 col-md-2">
+						<button type="submit" class="btn btn-primary" style="margin-left:8px">검색</button>
+					</div> 
 				</form>
 			</div>
 		</div>
+	</div>
 	
+	<div class="container">
 		<div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
 			<table class="table table-striped">
 			  <thead>
@@ -72,14 +84,11 @@
 						</tr>
 					<% 
 						} 
-						pw.close(); 
-						userDAO.close(); 
-				      	boardDAO.close();
 					%>
 			   </tbody>
 			</table>
 			<a href="<%= application.getContextPath() %>/new.jsp" class="btn btn-primary" style="float:right;">글 쓰기</a>
 		</div>
-	</div>
+	</div> <!--  container의 끝 -->
 </body>
 </html>

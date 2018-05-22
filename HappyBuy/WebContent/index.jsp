@@ -20,11 +20,6 @@
 <body>
 	<%@ include file="nav.jsp" %>
 	
-	
-	
     <%@ include file="footer.jsp" %>
-    <%
-    	userDAO.close(); 
-    %>
 </body>
 </html>

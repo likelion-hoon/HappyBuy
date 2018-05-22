@@ -61,8 +61,5 @@
 			</div>
 		</div>
 	 </div>
-	 <%
-		userDAO.close(); 
-	 %>
 </body>
 </html>

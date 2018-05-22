@@ -11,27 +11,32 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.jonghoon.happybuy.common.JdbcHelper;
+
 public class UserDAO {
 
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
+	private DataSource dataSource = null;
 
 	public UserDAO() {
 		try {
 			InitialContext ic = new InitialContext();
-			DataSource dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/mysql");
-			conn = dataSource.getConnection();
-		} catch (NamingException | SQLException e) {
+			dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/mysql");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 
 	// 로그인 유효성 체크
 	public boolean login(String email, String password) {
+		
+		String sql = "select * from user where email = ? and password = ?";
+		
 		try {
-			
-			pstmt = conn.prepareStatement("select * from user where email = ? and password = ?");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);
 			rs = pstmt.executeQuery();
@@ -43,8 +48,9 @@ public class UserDAO {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
 		}
 
 		return false;
@@ -52,8 +58,12 @@ public class UserDAO {
 
 	// 해당 email을 가지고 있는 user를 return 해주는 함수
 	public User getUser(int user_id) {
+		
+		String sql = "select * from user where idx = ?";
+		
 		try {
-			pstmt = conn.prepareStatement("select * from user where idx = ?");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, user_id);
 			rs = pstmt.executeQuery();
 
@@ -72,29 +82,35 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
 		}
+		
 		return null;
 	}
 	
-	// registrationProc.java에서 user정보를 db에 insert하는 함수
 	public int insertUser(User user) {
 		
+		String sql = "insert into user(email, password, number, gender, address, pnumber, profilePath) values (?,?,?,?,?,?,?)";
+		
 		try {
-			pstmt = conn.prepareStatement("insert into user(email, password, number, gender, address, pnumber, profilePath) values (?,?,?,?,?,?,?)");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getEmail());
 			pstmt.setString(2, user.getPassword());
 			pstmt.setString(3, user.getNumber());
 			pstmt.setBoolean(4, user.isGender());
 			pstmt.setString(5, user.getAddress());
 			pstmt.setString(6, user.getPnumber());
-			pstmt.setString(7, "");
+			pstmt.setString(7, ""); // 처음 회원가입 할때 profile image 없음
 			
 			return pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
 		}
-		// 값을 집어넣고 return true를 실행함
 		
 		return -1; 
 	}
@@ -105,6 +121,7 @@ public class UserDAO {
 		String sql = "select email from user where idx = ?";
 		
 		try {
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, user_id);
 			rs = pstmt.executeQuery();
@@ -115,14 +132,21 @@ public class UserDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
 		}
+		
 		return null;
 	}
 	
 	// email을 파라메타로 받아서 idx를 리턴하는 함수 만들기 
 	public int getUserIdx(String email) {
+		
+		String sql = "select idx from user where email = ?";
+		
 		try {
-			pstmt = conn.prepareStatement("select idx from user where email = ?");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs = pstmt.executeQuery(); 
 			
@@ -131,6 +155,8 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
 		}
 		
 		return -1; 
@@ -139,8 +165,11 @@ public class UserDAO {
 	// board_id를 파라메타로 받아서 email을 리턴하는 함수 만들기 
 	public String getEmailInBoardId(int board_id) {
 		
+		String sql = "select email from user where idx = (select user_id from board where idx = ?)";
+		
 		try {
-			pstmt = conn.prepareStatement("select email from user where idx = (select user_id from board where idx = ?)");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_id); 
 			rs = pstmt.executeQuery(); 
 			
@@ -150,13 +179,16 @@ public class UserDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
+		}
 		
 		return null; // 값을 찾을 수 없을 때 null리턴
 	}
 	
 	public String getProfile(int user_id) {
 		try {
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement("select profilePath from user where idx = ?");
 			pstmt.setInt(1,user_id); 
 			rs = pstmt.executeQuery(); 
@@ -170,7 +202,9 @@ public class UserDAO {
 			
 		} catch (SQLException | UnsupportedEncodingException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			JdbcHelper.close(conn,pstmt,rs); 
+		}
 		
 		return "http://localhost:8080/HappyBuy/images/default.png"; 
 	}
@@ -182,6 +216,7 @@ public class UserDAO {
 		String sql = "update user set password = ?, address = ?, pnumber = ?, profilePath = ? where idx = ?";
 		
 		try {
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getPassword());
 			pstmt.setString(2, user.getAddress());
@@ -193,36 +228,10 @@ public class UserDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			JdbcHelper.close(conn, pstmt);
+		}
 		
 		return -1; 
-	}
-	
-	// 모든 연결자원 접속종료 
-	public void close()  {
-		if(rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
-		}
-		
-		if(pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
-		}
-		
-		if(conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
-		}
-
 	}
 }

@@ -10,19 +10,21 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.jonghoon.happybuy.common.JdbcHelper;
+
 
 public class ReplyDAO {
 	
-	Connection conn = null; 
-	PreparedStatement pstmt = null; 
-	ResultSet rs = null; 
+	private Connection conn = null; 
+	private PreparedStatement pstmt = null; 
+	private ResultSet rs = null; 
+	private DataSource dataSource = null;
 
 	public ReplyDAO() {
 		try {
 			InitialContext ic = new InitialContext();
-			DataSource dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/mysql");
-			conn = dataSource.getConnection();
-		} catch (NamingException | SQLException e) {
+			dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/mysql");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		} 
 	}
@@ -33,6 +35,7 @@ public class ReplyDAO {
 		String sql = "insert into reply(content, board_id, user_id) values (?,?,?)";
 		
 		try {
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,reply.getContent());
 			pstmt.setInt(2,reply.getBoard_id());
@@ -42,7 +45,9 @@ public class ReplyDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			JdbcHelper.close(conn, pstmt);
+		}
 		
 		return -1; 
 	}
@@ -53,6 +58,7 @@ public class ReplyDAO {
 		String sql = "select * from reply where board_id = ?"; 
 		
 		try {
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_id);
 			rs = pstmt.executeQuery();
@@ -69,35 +75,10 @@ public class ReplyDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
+		}
 		
 		return list; 
 	}
-	
-	public void close() {
-		if(rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
-		}
-		
-		if(pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
-		}
-		
-		if(conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 }

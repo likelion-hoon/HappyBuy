@@ -1,10 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page import="com.jonghoon.happybuy.user.UserDAO,com.jonghoon.happybuy.user.User"%>
 
-<%
-	UserDAO userDAO = new UserDAO(); 
-%>
-
  <nav class="navbar navbar-default">
   
   <div class="container-fluid">
@@ -76,7 +72,8 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <% if(session.getAttribute("userID") == null) { %>
+          <%  UserDAO userDAO = new UserDAO();  
+          	if(session.getAttribute("userID") == null) { %>
         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify"></span></a> 
           <% } else { %>
           	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= session.getAttribute("userID") %><span class="caret"></span></a>

@@ -154,13 +154,7 @@
 	  <% } %>
 	</div> <!-- container의 끝 -->
 	
-	 <% 
-	     // 자원 반납
-	     pw.close(); 
-	 	 replyDAO.close(); 
-	 	 boardDAO.close(); 
-      	 userDAO.close(); 
-     %>
+	
 </body>
 </html>
 

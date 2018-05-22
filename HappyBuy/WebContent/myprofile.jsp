@@ -124,4 +124,3 @@
 </body>
 </html>
 
-<%  userDAO.close(); %>

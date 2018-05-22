@@ -37,8 +37,6 @@
 	int num = Integer.parseInt(request.getParameter("idx")); 
 	BoardDAO boardDAO = new BoardDAO(); 
 	Board board = boardDAO.getBoard(num);
-	
-	boardDAO.close(); 
 %>
 <body>
 	<%@ include file="nav.jsp" %>

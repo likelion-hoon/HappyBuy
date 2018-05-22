@@ -39,7 +39,6 @@ public class registrationProc extends HttpServlet {
 		if(email.isEmpty() || password.isEmpty() || passcheck.isEmpty() || number.isEmpty() ||
 				address.isEmpty() || pnumber.isEmpty()) {
 			out.println("<script> alert('입력하지 않은 값이 있습니다.'); history.go(-1) </script>");
-			userDAO.close(); 
 			out.close(); 
 			return;
 		}
@@ -47,7 +46,6 @@ public class registrationProc extends HttpServlet {
 		// 비밀번호 일치확인 조건문
 		if(!password.equals(passcheck)) {
 			out.println("<script> alert('비밀번호 값이 다릅니다.'); history.go(-1) </script>");
-			userDAO.close(); 
 			out.close(); 
 			return;
 		}
@@ -59,7 +57,6 @@ public class registrationProc extends HttpServlet {
 			out.println("<script> alert('회원가입에 실패하였습니다.'); history.go(-1) </script>");
 		}
 		
-		userDAO.close(); 
 		out.close(); 
 	}
 }

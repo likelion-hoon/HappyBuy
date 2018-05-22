@@ -11,6 +11,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.jonghoon.happybuy.common.JdbcHelper;
+
 
 public class BoardDAO {
 	
@@ -18,37 +20,35 @@ public class BoardDAO {
 	private Connection conn = null; 
 	private PreparedStatement pstmt = null; 
 	private ResultSet rs = null; 
+	private DataSource dataSource = null;
 	
 	public BoardDAO() {
 		try {
 			InitialContext ic = new InitialContext();
-			DataSource dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/mysql");
-			conn = dataSource.getConnection();
-		} catch (NamingException | SQLException e) {
+			dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/mysql");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		} 
 	}
 	
 	// create.jsp에서 실행 -> 게시판 글 등록
 	public int insertBoard(Board board) {
+		
+		String sql = "insert into board(title, content, fileName, fileRealName, user_id) values (?,?,?,?,?)";
 		try {
-			pstmt = conn.prepareStatement("insert into board(title, content, fileName, fileRealName, user_id) values (?,?,?,?,?)");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
 			pstmt.setString(3, board.getFileName());
 			pstmt.setString(4, board.getFileRealName());
 			pstmt.setInt(5, board.getUser_id());
 			
-			System.out.println(board.getTitle());
-			System.out.println(board.getContent());
-			System.out.println(board.getFileName());
-			System.out.println(board.getFileRealName());
-			System.out.println(board.getUser_id());
-			
 			return pstmt.executeUpdate(); 
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt); 
 		}
 		
 		return -1; 
@@ -56,14 +56,20 @@ public class BoardDAO {
 	
 	// 게시판 글 삭제 
 	public int deleteBoard(int idx) {
+		
+		String sql = "delete from board where idx = ?"; 
+		
 		try {
-			pstmt = conn.prepareStatement("delete from board where idx=?");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			
 			return pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
 		}
 		
 		return -1; 
@@ -71,19 +77,24 @@ public class BoardDAO {
 	
 	// 게시판 글 수정
 	public int updateBoard(Board board) {
+		
+		String sql = "update board set title = ?, content = ?, fileName = ?, fileRealName = ? where idx = ?"; 
+		
 		try {
-			pstmt = conn.prepareStatement("update board set title = ?, content = ?, fileName = ?, fileRealName = ? where idx = ?");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
 			pstmt.setString(3, board.getFileName());
 			pstmt.setString(4, board.getFileRealName());
 			pstmt.setInt(5, board.getIdx());
 			
-			
 			return pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
 		}
 		
 		return -1; 
@@ -91,8 +102,12 @@ public class BoardDAO {
 
 	// show.jsp에서 얻어오는 값 -> 게시판 글 조회
 	public Board getBoard(int idx) {
+		
+		String sql = "select * from board where idx = ?";
+		
 		try {
-			pstmt = conn.prepareStatement("select * from board where idx = ?");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
 			
@@ -111,6 +126,8 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
 		}
 		
 		return null; 
@@ -119,9 +136,13 @@ public class BoardDAO {
 	// board.jsp에 나타날 List<Board> 값을 얻어온다.
 	public List<Board> getBoardList() {
 		
+		// opt
 		List<Board> list = new ArrayList<Board>(); 
+		String sql = "select * from board order by idx desc";
+		
 		try {
-			pstmt = conn.prepareStatement("select * from board order by idx desc");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -136,30 +157,45 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
 		}
+		
 		return list;
 	}
 	
 	// 게시글의 조회수를 올려주는 함수
 	public void increaseHit(int idx)  {
+		
+		String sql = "update board set hit = hit + 1 where idx = ?";
+		
 		try {
-			pstmt = conn.prepareStatement("update board set hit = hit + 1 where idx = ?");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
 		}
 	}
 	
 	// 추천수를 올려주는 함수 
 	public int increaseRecom(int idx) {
+		
+		String sql = "update board set recom = recom + 1 where idx = ?"; 
+		
 		try {
-			pstmt = conn.prepareStatement("update board set recom = recom + 1 where idx = ?");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			return pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
 		}
 		
 		return -1; 
@@ -167,8 +203,12 @@ public class BoardDAO {
 	
 	// 추천 중복 체크 하는 함수 
 	public int checkRecom(String email, int idx) {
+		
+		String sql = "insert into recommend values (?,?)";
+		
 		try {
-			pstmt = conn.prepareStatement("insert into recommend values (?,?)");
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			pstmt.setInt(2, idx);
 			
@@ -176,37 +216,11 @@ public class BoardDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
 		}
 		
 		return -1;
 	}
-	
-
-	public void close() {
-		if(rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
-		}
-		
-		if(pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
-		}
-		
-		if(conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	
 }

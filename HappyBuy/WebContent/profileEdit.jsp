@@ -79,9 +79,5 @@
 			</form>
 		</div>
 	</div>
-	
-	<%
-		userDAO.close(); 
-	%>
 </body>
 </html>

@@ -36,6 +36,5 @@ public class createReply extends HttpServlet {
 		}
 		
 		out.close(); 
-		replyDAO.close(); 
 	}
 }

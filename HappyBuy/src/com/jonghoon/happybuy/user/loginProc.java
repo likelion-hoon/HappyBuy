@@ -41,7 +41,6 @@ public class loginProc extends HttpServlet {
 		}
 		
 		// 사용한 자원반납
-		userDAO.close(); 
 		out.close();
 	}
 }
