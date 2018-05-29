@@ -21,6 +21,7 @@
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/nav.css">
 	<title> 게시판 </title>
+
 </head>
 
 <%
@@ -40,15 +41,24 @@
 	<%@ include file="nav.jsp" %>
 	<div class="container" style="margin-top:50px;"> 
 		<div class="upper_board">
-			<div class="search row col-xs-offset-7 col-xs-5 col-sm-offset-7 col-sm-5 col-md-offset-7 col-md-5 col-lg-offset-7 col-lg-5" style="margin-bottom:30px;">
+			<div class="col-xs-2 col-sm-2 col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-2" style="margin-top:15px;">
+				<select name="setDefaultPg" onchange="location.href = this.value;">
+	 				<option value="<%= application.getContextPath() %>/board.jsp" selected>글 수 설정</option>
+	 				<option value="<%= application.getContextPath() %>/board.jsp?default=5">5개씩 보기</option>
+	 				<option value="<%= application.getContextPath() %>/board.jsp?default=10">10개씩 보기</option>
+	 				<option value="<%= application.getContextPath() %>/board.jsp?default=20">20개씩 보기</option>
+				</select>
+			</div>
+			
+			<div class="search row col-xs-offset-5 col-xs-5 col-sm-offset-5 col-sm-5 col-md-offset-4 col-md-5 col-lg-offset-4 col-lg-5" style="margin-bottom:10px;">
 				<form action="<%= application.getContextPath() %>/board.jsp" method="GET" id="searchForm">
-					<div class="col-md-1">
-						<select name="opt" style="margin-top:7px;">
+					<div class="col-md-offset-1 col-md-1">
+						<select name="opt" style="margin-top:7px;margin-right:20px;">
 						  <option value="searchTitle" selected>제목</option>
 						  <option value="searchContent">내용</option>
 						</select>
 					</div>
-					<div class="col-md-offset-1 col-md-3">
+					<div class="col-md-offset-1 col-md-3" style="padding-left:7px;padding-right:5px;">
 						<input type="text" name="keyword" class="form-control col-xs-2 col-sm-2" style="width:180px;" placeholder="검색어를 입력하세요"/>
 					</div> 
 					<div class="col-md-offset-2 col-md-2">
@@ -73,8 +83,15 @@
 				</tr>
 			  </thead>
 			  <tbody>
-					<%		
-						int defaultPg = 5;  // 한 페이지당 기본 게시글 수
+					<%	
+						String viewCountStr = CheckNull.checkNull(request.getParameter("default"));
+						int viewCount = 5; 
+						
+						if(!viewCountStr.equals("")) {
+							viewCount = Integer.parseInt(viewCountStr); 
+						}
+						
+						int defaultPg = viewCount;  // 한 페이지당 기본 게시글 수
 						BoardDAO boardDAO = new BoardDAO(); 
 						List<Board> list = boardDAO.getBoardList(opt, keyword);
 						int boardCount = list.size(); 
@@ -126,7 +143,8 @@
 		<div class="row" style="text-align:center;">
 		    <ul class="pagination">
 		    	<% for(int i=1; i<=pageCount; i++) { %>
-			    	<li><a href="<%= application.getContextPath() %>/board.jsp?page=<%= i %>"><%= i %></a></li>
+			    	<li id="page<%= i %>"><a onclick="changeActive(this);" href="<%= application.getContextPath() %>/board.jsp?page=<%= i %>&default=<%= defaultPg %>"><%= i %></a></li>
+			    	<%-- <li><a id="page<%= i %>" onclick="changeActive(this);"><%= i %></a></li> --%>
 			    <% } %>
 			</ul>
 		</div>
