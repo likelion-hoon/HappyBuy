@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -132,17 +133,35 @@ public class BoardDAO {
 		
 		return null; 
 	}
-	
-	// board.jsp에 나타날 List<Board> 값을 얻어온다.
-	public List<Board> getBoardList() {
 		
-		// opt
-		List<Board> list = new ArrayList<Board>(); 
-		String sql = "select * from board order by idx desc";
+	// board.jsp에 나타날 List<Board> 값을 얻어온다.
+	public List<Board> getBoardList(String opt, String keyword) {
+		
+		List<Board> list = new ArrayList<Board>();
 		
 		try {
 			conn = dataSource.getConnection();
-			pstmt = conn.prepareStatement(sql);
+			StringBuffer sql = new StringBuffer();  
+			
+		// 제목 검색 일떄 
+		if(opt.equals("searchTitle")) {
+			sql.append("select * from board where title like ?"); 
+			sql.append(" order by idx desc");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, "%" + keyword + "%");
+			System.out.println(sql.toString());
+		} else if(opt.equals("searchContent")) { // 내용 검색 일때 
+			sql.append("select * from board where content like ?");
+			sql.append(" order by idx desc");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, "%" + keyword + "%");
+			System.out.println(sql.toString());
+		} else { // 검색 아닌 일반적인 경우
+			sql.append("select * from board order by idx desc"); 
+			System.out.println(sql.toString());
+			pstmt = conn.prepareStatement(sql.toString());
+		}
+	
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
