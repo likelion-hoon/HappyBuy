@@ -149,16 +149,13 @@ public class BoardDAO {
 			sql.append(" order by idx desc");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, "%" + keyword + "%");
-			System.out.println(sql.toString());
 		} else if(opt.equals("searchContent")) { // 내용 검색 일때 
 			sql.append("select * from board where content like ?");
 			sql.append(" order by idx desc");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, "%" + keyword + "%");
-			System.out.println(sql.toString());
 		} else { // 검색 아닌 일반적인 경우
 			sql.append("select * from board order by idx desc"); 
-			System.out.println(sql.toString());
 			pstmt = conn.prepareStatement(sql.toString());
 		}
 	

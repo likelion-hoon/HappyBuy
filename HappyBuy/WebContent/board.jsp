@@ -31,6 +31,7 @@
 		pw.close(); 
 	}
 	
+	// null 값이면 ""를 리턴한다.
 	String opt = CheckNull.checkNull(request.getParameter("opt")); 
 	String keyword = CheckNull.checkNull(request.getParameter("keyword")); 
 %>
@@ -73,17 +74,40 @@
 			  </thead>
 			  <tbody>
 					<%		
+						int defaultPg = 5;  // 한 페이지당 기본 게시글 수
 						BoardDAO boardDAO = new BoardDAO(); 
 						List<Board> list = boardDAO.getBoardList(opt, keyword);
-						for(int i=0; i<list.size(); i++) { 
+						int boardCount = list.size(); 
+						int pageCount = (boardCount - 1) / defaultPg + 1; 
+						int rest = boardCount % defaultPg;
+						
+						String pg = CheckNull.checkNull(request.getParameter("page"));
+						int pgNum = 0; 
+						// 값이 안들어왔다는 얘기
+						if(pg.equals("")) {
+							pgNum = 1; 
+						} else {
+							pgNum = Integer.parseInt(pg);
+						}
+						
+						int start = (pgNum - 1)*defaultPg + 1; 
+						int end = pgNum * defaultPg; 
+						if(pgNum==pageCount) {
+							end = boardCount;
+						}
+						
+						// page == pageCount && rest > 0 이면  page==pageCount일 때 나머지 rest값이 출력 되어야 함
+						// page == pageCount && rest == 0 이면 page==pageCount일 때 마지막 defaultPg 개수 만큼 출력 되어야 함
+						
+						for(int i=start; i<=end; i++) { 
 					%>
 						<tr>
-							<td> <%= list.get(i).getIdx() %> </td>
-							<td> <a href="<%= application.getContextPath() %>/show.jsp?idx=<%= list.get(i).getIdx() %>"> <%= list.get(i).getTitle() %> </a></td>
-							<td> <%= userDAO.getEmailInBoardId(list.get(i).getIdx()) %> </td>
-							<td> <%= list.get(i).getHit() %> </td>
-							<td> <%= list.get(i).getRecom() %> </td>
-							<td> <%= list.get(i).getDate().substring(0,19) %></td>
+							<td> <%= list.get(i-1).getIdx() %> </td>
+							<td> <a href="<%= application.getContextPath() %>/show.jsp?idx=<%= list.get(i-1).getIdx() %>"> <%= list.get(i-1).getTitle() %> </a></td>
+							<td> <%= userDAO.getEmailInBoardId(list.get(i-1).getIdx()) %> </td>
+							<td> <%= list.get(i-1).getHit() %> </td>
+							<td> <%= list.get(i-1).getRecom() %> </td>
+							<td> <%= list.get(i-1).getDate().substring(0,19) %></td>
 						</tr>
 					<% 
 						} 
@@ -95,7 +119,17 @@
 				  <a href="<%= application.getContextPath() %>/board.jsp" class="btn btn-primary" style="float:left;"> 검색취소 </a>
 			<% } %>
 			<a href="<%= application.getContextPath() %>/new.jsp" class="btn btn-primary" style="float:right;">글 쓰기</a>
-		</div>
+		</div>		
 	</div> <!--  container의 끝 -->
+	
+	<div class="container">
+		<div class="row" style="text-align:center;">
+		    <ul class="pagination">
+		    	<% for(int i=1; i<=pageCount; i++) { %>
+			    	<li><a href="<%= application.getContextPath() %>/board.jsp?page=<%= i %>"><%= i %></a></li>
+			    <% } %>
+			</ul>
+		</div>
+	</div>
 </body>
 </html>
