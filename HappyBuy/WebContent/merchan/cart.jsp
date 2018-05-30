@@ -5,16 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
-	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="<%= application.getContextPath() %>/js/jquery-3.3.1.min.js"></script>
 	
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="css/nav.css">
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/bootstrap-theme.min.css">
+	<script src="<%= application.getContextPath() %>/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/nav.css">
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<title> 장바구니 </title>
 </head>
 <body>
-	<%@ include file="nav.jsp" %>
+	<%@ include file="../nav.jsp" %>
 </body>
 </html>

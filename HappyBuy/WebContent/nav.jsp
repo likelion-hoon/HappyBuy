@@ -41,24 +41,24 @@
 	           						<li role="separator" class="divider"></li>
 	           						<li><a href="#">&gt;&nbsp;과자</a></li>
 	           						<li><a href="#">&gt;&nbsp;라면</a></li>
-	           						<li><a href="#">&gt;&nbsp;남성신발</a></li>
-	           						<li><a href="#">&gt;&nbsp;여성신발</a></li>
-	           						<li><a href="#">&gt;&nbsp;스카프</a></li>
-	           						<li><a href="#">&gt;&nbsp;모자</a></li>
-	           						<li><a href="#">&gt;&nbsp;양말</a></li>
+	           						<li><a href="#">&gt;&nbsp;냉동식품</a></li>
+	           						<li><a href="#">&gt;&nbsp;정육</a></li>
+	           						<li><a href="#">&gt;&nbsp;과일</a></li>
+	           						<li><a href="#">&gt;&nbsp;생선</a></li>
+	           						<li><a href="#">&gt;&nbsp;야채</a></li>
 	           					</ul>
 	           				</div>
 	           				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 	           					<ul class="list-unstyled">
 	           						<li><h3>주거</h3></li>
 	           						<li role="separator" class="divider"></li>
-	           						<li><a href="#">&gt;&nbsp;가구</a></li>
-	           						<li><a href="#">&gt;&nbsp;이불</a></li>
-	           						<li><a href="#">&gt;&nbsp;남성신발</a></li>
-	           						<li><a href="#">&gt;&nbsp;여성신발</a></li>
-	           						<li><a href="#">&gt;&nbsp;스카프</a></li>
-	           						<li><a href="#">&gt;&nbsp;모자</a></li>
-	           						<li><a href="#">&gt;&nbsp;양말</a></li>
+	           						<li><a href="#">&gt;&nbsp;에어컨</a></li>
+	           						<li><a href="#">&gt;&nbsp;냉장고</a></li>
+	           						<li><a href="#">&gt;&nbsp;TV</a></li>
+	           						<li><a href="#">&gt;&nbsp;세탁기</a></li>
+	           						<li><a href="#">&gt;&nbsp;식탁</a></li>
+	           						<li><a href="#">&gt;&nbsp;컴퓨터</a></li>
+	           						<li><a href="#">&gt;&nbsp;침대</a></li>
 	           					</ul>
 	           				</div>
            				</div> 
@@ -68,6 +68,8 @@
           </ul>
         </li>
         <li><a href="<%= application.getContextPath() %>/board.jsp">QnA 게시판</a></li>
+        <li><a href="<%= application.getContextPath() %>/merchan/toSeller.jsp">판매자 신청</a></li>
+        <li><a href="<%= application.getContextPath() %>/merchan/new.jsp">상품올리기</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">

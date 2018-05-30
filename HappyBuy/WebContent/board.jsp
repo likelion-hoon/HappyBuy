@@ -21,7 +21,6 @@
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/nav.css">
 	<title> 게시판 </title>
-
 </head>
 
 <%
@@ -39,9 +38,9 @@
 
 <body>
 	<%@ include file="nav.jsp" %>
-	<div class="container" style="margin-top:50px;"> 
+	<div class="container" style="margin-top:70px;"> 
 		<div class="upper_board">
-			<div class="col-xs-2 col-sm-2 col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-2" style="margin-top:15px;">
+			<div class="col-xs-2 col-sm-2 col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-2" style="margin-top:10px;">
 				<select name="setDefaultPg" onchange="location.href = this.value;">
 	 				<option value="<%= application.getContextPath() %>/board.jsp" selected>글 수 설정</option>
 	 				<option value="<%= application.getContextPath() %>/board.jsp?default=5">5개씩 보기</option>

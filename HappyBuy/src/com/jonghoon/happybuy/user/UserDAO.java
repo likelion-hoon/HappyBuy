@@ -6,11 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.jonghoon.happybuy.admin.Admin;
 import com.jonghoon.happybuy.common.JdbcHelper;
 
 public class UserDAO {
@@ -233,5 +235,38 @@ public class UserDAO {
 		}
 		
 		return -1; 
+	}
+	
+	// 유저리스트 리턴 받는 함수('유저 목록 보기'에서 사용)
+	public ArrayList<User> getUserList() {
+		
+		ArrayList<User> list = new ArrayList<>(); 
+		String sql = "select * from user order by idx desc";
+		
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(); 
+			
+			while(rs.next()) {
+				User user = new User();  
+				user.setIdx(rs.getInt("idx"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setNumber(rs.getString("number"));
+				user.setGender(rs.getBoolean("gender"));
+				user.setAddress(rs.getString("address"));
+				user.setPnumber(rs.getString("pnumber"));
+				user.setPoint(rs.getString("point"));
+				user.setProfilePath(rs.getString("profilePath"));
+				list.add(user); 
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
+		}
+		
+		return list;
 	}
 }

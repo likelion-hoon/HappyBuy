@@ -18,11 +18,17 @@
 	
 	<title>HappyBuy 로그인 페이지</title>
 	
-	<style>
-		input {
-			margin-bottom: 15px; 
-		}
-	</style>
+	<script>
+        function chooseForm(radioName) {
+            var radios = document.getElementsByName(radioName); 
+            for(var i=0, len = radios.length; i < len; i++) {
+                document.getElementById('form_' + radios[i].value).style.display = 'none';
+                if(radios[i].checked) {
+                    document.getElementById('form_' + radios[i].value).style.display = 'block';
+                }
+            }
+        }
+    </script>
 </head>
 
 <%
@@ -39,34 +45,27 @@
 
 <body>
 	<%@ include file="nav.jsp" %>
-	<div class="container" style="margin-top:60px;"> 
-		<div class="row">
-			<div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-offset-6">
-			
-				<h2 style="margin-bottom:30px;">로그인 페이지</h2>
-				<hr />
-				
-				<!--  회원, 관리자 로그인 구분 radio button -->
-				<div class="user_select">
-			    	<label for="customer">
-			    		<input type="radio" class="radio" name="user" id="customer" value="Y" checked> 회원
-			    	</label>
-			    	<label for="admin">
-			    		<input type="radio" class="radio" name="user" id="admin" value="N" > 관리자
-			    	</label>
-	    		</div>
+	<div class="container" style="margin-top:80px;"> 
+	
+		<div class="col-md-offset-4 col-md-6 col-lg-offset-4 col-lg-offset-6">
+			<!--  회원, 관리자 로그인 구분 radio button -->
+		    <label for="customer"><input type="radio" name="formType" id="customer" value="1" onclick="chooseForm(this.name)" checked> 회원 </label>
+		    <label for="admin"><input type="radio" name="formType" id="admin" value="2" onclick="chooseForm(this.name)"> 관리자 </label>
+		</div>
+		
+		<!-- 회원 로그인 -->
+		<div id="form_1">
+			<div class="col-md-offset-4 col-md-6 col-lg-offset-4 col-lg-offset-6">
+				<h2 style="margin-bottom:30px;"> 회원 로그인 </h2>
 				
 				<form action="loginProc" method="POST">
 					<div class="form-group">
-						<input type="email" class="form-control col-sm-3" id="email" name="email"
-							placeholder="이메일" style="width:60%;">
+						<input type="email" class="form-control col-sm-3" id="email" name="email" placeholder="이메일" style="margin-bottom:10px;width:60%;">
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" id="password" name="password"
-							placeholder="비밀번호" style="width:60%;">
+						<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" style="width:60%;">
 					</div>
 					
-					<!-- 세션 객체의 시간을 늘린다. -->
 					<div class="form-group">
 						<input type="checkbox" id="checkbox" name="checkbox" value="checkbox" class="form-check-input"> 로그인 상태 유지<br>
 					</div>
@@ -77,7 +76,24 @@
 					
 					<button style="margin-top:15px;" type="submit" class="btn btn-primary">로그인</button>
 					
-					<hr />
+				</form>
+			</div>
+		</div>
+		
+		<!-- 관리자 로그인 -->
+		<div id="form_2" style="display:none;">
+			<div class="col-md-offset-4 col-md-6 col-lg-offset-4 col-lg-offset-6">
+				<h2 style="margin-bottom:30px;"> 관리자 로그인 </h2>
+		
+				<form action="adminLoginProc" method="POST">
+					<div class="form-group">
+						<input type="text" class="form-control col-sm-3" id="identi" name="identi" placeholder="아이디" style="margin-bottom:10px;width:60%;">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" style="width:60%;">
+					</div>
+					
+					<button type="submit" class="btn btn-primary">로그인</button>
 				</form>
 			</div>
 		</div>
