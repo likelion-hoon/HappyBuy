@@ -3,10 +3,13 @@ package com.jonghoon.happybuy.merchandise;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.jonghoon.happybuy.common.JdbcHelper;
 
 public class MerchanDAO {
 
@@ -24,6 +27,28 @@ public class MerchanDAO {
 			e.printStackTrace();
 		} 
 	}
+	
+	// 판매자 신청 로직 처리 
+	public int insertSellerRegister(String email, String reason) {
+		
+		String sql = "insert into sellerRegister values (?,?)"; 
+		
+		try {
+			conn = dataSource.getConnection(); 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, reason);
+			
+			return pstmt.executeUpdate(); 
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
+		}
+		
+		return -1; 
+	}
+	
 	
 	// 상품 등록
 	// 상품 삭제 

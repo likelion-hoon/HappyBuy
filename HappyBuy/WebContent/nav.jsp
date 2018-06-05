@@ -67,9 +67,14 @@
             </li>
           </ul>
         </li>
+        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">판매<span class="caret"></span></a>
+        	<ul class="dropdown-menu">
+        		<li><a href="<%= application.getContextPath() %>/merchan/toSeller.jsp">판매자 신청</a></li>
+       	 		<li><a href="<%= application.getContextPath() %>/merchan/new.jsp">상품올리기</a></li>
+        	</ul>
+        </li>
+       
         <li><a href="<%= application.getContextPath() %>/board.jsp">QnA 게시판</a></li>
-        <li><a href="<%= application.getContextPath() %>/merchan/toSeller.jsp">판매자 신청</a></li>
-        <li><a href="<%= application.getContextPath() %>/merchan/new.jsp">상품올리기</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">

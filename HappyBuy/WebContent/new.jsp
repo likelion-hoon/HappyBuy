@@ -36,8 +36,7 @@
 	<%@ include file="nav.jsp" %>
 	<div class="container" style="margin-top:50px">
 		<div class="row">
-			<div
-				class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
+			<div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
 				<form action="createBoard" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="title">글 제목</label> 

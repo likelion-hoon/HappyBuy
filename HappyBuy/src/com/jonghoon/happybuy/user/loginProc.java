@@ -24,6 +24,7 @@ public class loginProc extends HttpServlet {
 		UserDAO userDAO = new UserDAO(); 
 		HttpSession session = request.getSession();
 		
+		
 		String email = request.getParameter("email"); 
 		String password = request.getParameter("password");
 		
@@ -39,6 +40,8 @@ public class loginProc extends HttpServlet {
 		} else {
 			out.println("<script> alert('입력값이 틀렸습니다.'); history.go(-1) </script>");
 		}
+		
+		
 		
 		// 사용한 자원반납
 		out.close();
