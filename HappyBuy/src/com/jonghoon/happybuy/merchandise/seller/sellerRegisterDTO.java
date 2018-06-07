@@ -1,4 +1,4 @@
-package com.jonghoon.happybuy.merchandise;
+package com.jonghoon.happybuy.merchandise.seller;
 
 public class sellerRegisterDTO {
 

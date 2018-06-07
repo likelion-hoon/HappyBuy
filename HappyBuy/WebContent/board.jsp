@@ -40,7 +40,7 @@
 	<%@ include file="nav.jsp" %>
 	<div class="container" style="margin-top:70px;"> 
 		<div class="upper_board">
-			<div class="col-xs-2 col-sm-2 col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-2" style="margin-top:10px;">
+			<div class="col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-2" style="margin-top:10px;">
 				<select name="setDefaultPg" onchange="location.href = this.value;">
 	 				<option value="<%= application.getContextPath() %>/board.jsp" selected>글 수 설정</option>
 	 				<option value="<%= application.getContextPath() %>/board.jsp?default=5">5개씩 보기</option>
@@ -49,7 +49,7 @@
 				</select>
 			</div>
 			
-			<div class="search row col-xs-offset-5 col-xs-5 col-sm-offset-5 col-sm-5 col-md-offset-4 col-md-5 col-lg-offset-4 col-lg-5" style="margin-bottom:10px;">
+			<div class="search row col-md-offset-4 col-md-5 col-lg-offset-4 col-lg-5" style="margin-bottom:10px;">
 				<form action="<%= application.getContextPath() %>/board.jsp" method="GET" id="searchForm">
 					<div class="col-md-offset-1 col-md-1">
 						<select name="opt" style="margin-top:7px;margin-right:20px;">
@@ -69,7 +69,7 @@
 	</div>
 	
 	<div class="container">
-		<div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+		<div class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
 			<table class="table table-striped">
 			  <thead>
 				<tr>

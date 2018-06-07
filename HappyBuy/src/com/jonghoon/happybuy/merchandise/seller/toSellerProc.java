@@ -1,4 +1,4 @@
-package com.jonghoon.happybuy.merchandise;
+package com.jonghoon.happybuy.merchandise.seller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jonghoon.happybuy.common.CheckNull;
+import com.jonghoon.happybuy.merchandise.MerchanDAO;
 import com.jonghoon.happybuy.user.User;
 import com.jonghoon.happybuy.user.UserDAO;
 

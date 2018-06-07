@@ -11,6 +11,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.jonghoon.happybuy.common.JdbcHelper;
+import com.jonghoon.happybuy.merchandise.seller.sellerRegisterDTO;
 
 public class MerchanDAO {
 

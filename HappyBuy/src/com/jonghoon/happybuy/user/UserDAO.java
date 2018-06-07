@@ -198,9 +198,9 @@ public class UserDAO {
 			
 			if(rs.next()) {
 				if(rs.getString(1).equals("")) {
-					return "http://localhost:8080/HappyBuy/images/default.png"; 
+					return "http://localhost:8080/HappyBuy/profile/default.png"; 
 				}
-				return "http://localhost:8080/HappyBuy/images/"+URLEncoder.encode(rs.getString(1),"UTF-8");
+				return "http://localhost:8080/HappyBuy/profile/"+URLEncoder.encode(rs.getString(1),"UTF-8");
 			}
 			
 		} catch (SQLException | UnsupportedEncodingException e) {

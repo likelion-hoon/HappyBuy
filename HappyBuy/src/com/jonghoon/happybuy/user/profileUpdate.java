@@ -26,7 +26,7 @@ public class profileUpdate extends HttpServlet {
 		 PrintWriter out = response.getWriter(); 
 		 MultipartRequest multi = null; 
 		 int fileSize = 1024*1024*10; // 최대 10mb
-		 String directory = request.getServletContext().getRealPath("/images");
+		 String directory = request.getSession().getServletContext().getRealPath("/profile");
 		 
 		 try {
 			 multi = new MultipartRequest(request, directory, fileSize, "UTF-8", new DefaultFileRenamePolicy());

@@ -48,7 +48,7 @@ public class createBoard extends HttpServlet {
 		String email = multipartRequest.getParameter("email");  // email은 user_id 얻어오는데 사용
 		String title = multipartRequest.getParameter("title"); 
 		String content = multipartRequest.getParameter("content"); 
-		String fileName = multipartRequest.getOriginalFileName("file");
+		String fileName = multipartRequest.getOriginalFileName("file");    // 겉으로 보여지는 파일명
 		String fileRealName = multipartRequest.getFilesystemName("file");  // 실제 서버에 저장되는 파일명(중복될 경우 바뀐다.)
 		int user_id = userDAO.getUserIdx(email); // 외래키 user_id
 		 
