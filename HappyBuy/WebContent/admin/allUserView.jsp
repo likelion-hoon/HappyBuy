@@ -7,7 +7,6 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
 	<script src="<%= application.getContextPath() %>/js/jquery-3.3.1.min.js"></script>

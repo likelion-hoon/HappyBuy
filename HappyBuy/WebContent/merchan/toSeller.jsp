@@ -31,17 +31,22 @@
 </style>
 </head>
 <% 
-// 로그인 확인 코드
-	PrintWriter pw = response.getWriter(); 
 	if(session.getAttribute("userID")==null) {
-		pw.println("<script> alert('로그인 하셔야 이용할 수 있습니다.'); location.href='../login.jsp' </script>");
-		pw.close(); 
+		out.println("<script> alert('로그인 하셔야 이용할 수 있습니다.'); location.href='../login.jsp' </script>");
+		out.close();  
 	}
 %>
 
 <body>
 	<%@ include file="../nav.jsp"%>
-
+	<% 
+	 	User user = userDAO.getUser(userDAO.getUserIdx((String)session.getAttribute("userID")));
+	 	if(user.isSeller()) {
+	 		out.println("<script> alert('이미 판매자 입니다.'); location.href='new.jsp' </script>");
+			out.close();  
+	 	}
+	%> 
+	
 	<div class="container">
 		<form action="../toSellerProc" method="POST">
 			<!-- DB 테이블에 저장하고 관리자 페이지에서 볼수 있게 설정하기 -->

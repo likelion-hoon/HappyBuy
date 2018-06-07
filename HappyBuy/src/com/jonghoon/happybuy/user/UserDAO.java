@@ -80,6 +80,7 @@ public class UserDAO {
 				user.setPnumber(rs.getString("pnumber"));
 				user.setPoint(rs.getString("point"));
 				user.setProfilePath(rs.getString("profilePath"));
+				user.setSeller(rs.getBoolean("isSeller"));
 				return user;
 			}
 		} catch (SQLException e) {

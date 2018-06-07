@@ -3,9 +3,18 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Insert title here</title>
+	
+	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
+	<script src="<%= application.getContextPath() %>/js/jquery-3.3.1.min.js"></script>
+	
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/bootstrap-theme.min.css">
+	<script src="<%= application.getContextPath() %>/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/nav.css">
+	
+	<title>신고 접수</title>
 </head>
 <body>
-
+	<%@ include file="nav.jsp" %>
 </body>
 </html>

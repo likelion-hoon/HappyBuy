@@ -15,9 +15,9 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="<%= application.getContextPath() %>/admin/allUserView.jsp">유저 목록 보기</a></li>
+        <li><a href="<%= application.getContextPath() %>/admin/allUserView.jsp">유저 관리</a></li>
         <li><a href="<%= application.getContextPath() %>/admin/manageSeller.jsp">판매자 등업 관리</a></li>
-        <li><a href="<%= application.getContextPath() %>/admin/getDeclaration.jsp">신고접수</a></li>
+        <li><a href="<%= application.getContextPath() %>/admin/getDeclaration.jsp">신고관리</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
