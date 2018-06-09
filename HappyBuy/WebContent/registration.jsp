@@ -20,6 +20,24 @@
 			width:50px;
 		}
 	</style>
+	<script language="javascript">
+	
+		function goPopup(){
+			var pop = window.open("jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+		}
+		
+		function jusoCallBack(roadAddrPart1,addrDetail){
+			document.form.roadAddrPart1.value = roadAddrPart1;
+			document.form.addrDetail.value = addrDetail;
+		}
+		
+		$(document).ready(function() {
+			$("#emailLast").on("change", function() {
+				$("#email2").val($(this).val());
+			});
+		});
+		
+	</script>
 </head>
 
 <%
@@ -34,52 +52,105 @@
 	<%@ include file="nav.jsp" %>
 	<div class="container" style="margin-top:60px;">
 		<div class="row">
-			<div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
+			<div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 				<h2 style="margin-bottom:30px;"> 회원가입 페이지 </h2>
-				<form action="registrationProc" method="POST">
+				
+				<hr />
+				
+				<form name="form" id="form" action="registrationProc" method="POST" >
 					<div class="form-group">
 						<label for="title">이메일</label> 
-						<input type="email" class="form-control" id="email" name="email" placeholder="이메일" >
+						<br />
+						<input type="text" class="form-control input-sm" style="width:100px;display:inline;" id="email1" name="email1" placeholder="이메일" />
+						@
+						<input type="text" class="form-control input-sm" style="width:100px;display:inline;" id="email2" name="email2" placeholder="회사" />
+						
+						<select id="emailLast" name="emailLast" style="display:inline;">
+							<option value="" selected>직접 입력</option>
+							<option value="naver.com">naver.com</option>
+							<option value="daum.net">daum.net</option>
+							<option value="google.com">google.com</option>
+						</select>
+						
+						<!-- 이메일 인증 버튼 -->
+						<a href="#" class="btn btn-sm btn-success" style="margin-left:20px;display:inline;">이메일 인증</a>
 					</div>
 	
-					<div class="form-group">
-						<label for="password">비밀번호</label>
-						<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
-					</div>
-					
-					<div class="form-group">
-						<label for="passcheck">비밀번호 확인</label>
-						<input  type="password" class="form-control" id="passcheck" name="passcheck" placeholder="비밀번호 확인">
-					</div>
-					
-					<div class="form-group">
-						<label for="number">주민등록번호 앞 6자리</label>
-						<input class="form-control" id="number" name="number" placeholder="주민등록번호 앞 6자리">
-					</div>
-					
-					<div class="form-group">
-						<label for="gender">성별</label>
-						<div class="radio">
-  							<label><input type="radio" name="gender" value="true" checked>남자</label>
+					<div class="password row">
+						<div class="form-group col-md-6 col-lg-6">
+							<label for="password">비밀번호</label>
+							<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
 						</div>
-						<div class="radio">
+						<div class="form-group col-md-6 col-lg-6">
+							<label for="passcheck">비밀번호 확인</label>
+							<input type="password" class="form-control" id="passcheck" name="passcheck" placeholder="비밀번호 확인">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="ymd">생년월일</label>&nbsp;&nbsp;
+						<select name="year">
+							<% for(int i=2018; i>=1900; i--) { %>
+								<option value="<%= i %>"><%= i %></option>
+							<% } %>
+						</select>
+						년
+						
+						<select name="month">
+							<% for(int i=1; i<=12; i++) { %>
+								<option value="<%= i %>"><%= i %></option>
+							<% } %>
+						</select>
+						월
+						
+						<select name="day">
+							<% for(int i=1; i<=31; i++) { %>
+								<option value="<%= i %>"><%= i %></option>
+							<% } %>
+						</select>
+						일
+					</div>
+					
+					<div class="form-group">
+						<label for="gender">성별</label>&nbsp;
+						<div class="radio" style="display:inline">
+  							<label><input type="radio" name="gender" value="true" checked>남자</label>
+  						</div>
+						<div class="radio" style="display:inline;">
   							<label><input type="radio" name="gender" value="false">여자</label>
 						</div>
 					</div>
 					
 					<!-- 주소 -->
-					<div class="form-group">
-						<label for="address">주소(시, 구, 동)</label>
-						<input class="form-control" id="address" name="address" placeholder="주소(시, 구, 동)">
+					<div class="form-group row">
+						<div class="col-md-6 col-lg-6">
+							<label>도로명주소</label>
+							<input type="text" class="form-control" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소"/>
+						</div>
+						
+						<div class="col-md-6 col-lg-6">
+							<label>고객입력 상세주소</label> 
+							<input type="text" class="form-control" id="addrDetail" name="addrDetail" placeholder="상세 주소"/>
+						</div>
+					</div>
+					
+					<div class="addrButton" style="margin-bottom:25px;">
+						<a class="btn btn-sm btn-default" onclick="goPopup();">주소검색</a>
 					</div>
 					
 					<!-- 핸드폰 번호 -->
 					<div class="form-group">
-						<label for="pnumber">핸드폰 번호</label>
-						<input class="form-control" id="pnumber" name="pnumber" placeholder="핸드폰 번호">
+						<label for="pnumber">핸드폰 번호</label>&nbsp;&nbsp;
+						010-
+						<input class="form-control input-sm" style="width:50px;display:inline;" id="pnum1" name="pnum1" />
+						-
+						<input class="form-control input-sm" style="width:50px;display:inline;" id="pnum2" name="pnum2" />
 					</div>
 					
-					<button type="submit" class="btn btn-primary">작성</button>
+					<hr />
+					
+					<a href="index.jsp" class="btn btn-warning">메인화면</a>
+					<button type="submit" class="btn btn-primary">제출</button>
 				</form>
 			</div>
 		</div>
