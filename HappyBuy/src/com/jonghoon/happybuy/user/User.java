@@ -13,7 +13,9 @@ public class User {
 	private String point; // 활동 점수, 홈페이지 활동을 하면 증가함, default 0 설정
 	private String profilePath; // 이미지 프로필 경로 저장
 	private boolean isSeller; // 고객, 판매자 확인 필드
-
+	private String emailHash; // 이메일 확인 해시값
+	private boolean emailChecked; // 이메일 확인 여부
+	
 	public User() {}
 
 	// 로그인할때 사용
@@ -42,18 +44,18 @@ public class User {
 	}
 
 	// 전체 생성자 저장
-	public User(int idx, String email, String password, String number, boolean gender, String address, String pnumber,
-			String point, String profilePath) {
-
-		this.idx = idx;
+	public User(String email, String password, String number, boolean gender, String address, String pnumber,
+			 String profilePath, String emailHash, boolean emailChecked) {
+		
 		this.email = email;
 		this.password = password;
 		this.number = number;
 		this.gender = gender;
 		this.address = address;
 		this.pnumber = pnumber;
-		this.point = point;
 		this.profilePath = profilePath;
+		this.emailHash = emailHash;
+		this.emailChecked = emailChecked;
 	}
 
 	public int getIdx() {
@@ -134,5 +136,21 @@ public class User {
 
 	public void setSeller(boolean isSeller) {
 		this.isSeller = isSeller;
+	}
+
+	public String getEmailHash() {
+		return emailHash;
+	}
+
+	public void setEmailHash(String emailHash) {
+		this.emailHash = emailHash;
+	}
+
+	public boolean isEmailChecked() {
+		return emailChecked;
+	}
+
+	public void setEmailChecked(boolean emailChecked) {
+		this.emailChecked = emailChecked;
 	}
 }

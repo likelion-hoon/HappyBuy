@@ -80,7 +80,7 @@
 		
 		User user = userDAO.getUser(userDAO.getUserIdx((String)session.getAttribute("userID")));
 		if(!user.isSeller()) {
-			out.println("<script> alert('권한이 없습니다.'); </script>");
+			out.println("<script> alert('권한이 없습니다.'); location.href='toSeller.jsp' </script>");
 			out.close(); 
 			return; 
 		}

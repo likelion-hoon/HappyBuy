@@ -81,6 +81,9 @@ public class UserDAO {
 				user.setPoint(rs.getString("point"));
 				user.setProfilePath(rs.getString("profilePath"));
 				user.setSeller(rs.getBoolean("isSeller"));
+				user.setEmailHash(rs.getString("emailHash"));
+				user.setEmailChecked(rs.getBoolean("emailChecked"));
+				
 				return user;
 			}
 		} catch (SQLException e) {
@@ -94,7 +97,7 @@ public class UserDAO {
 	
 	public int insertUser(User user) {
 		
-		String sql = "insert into user(email, password, number, gender, address, pnumber, profilePath) values (?,?,?,?,?,?,?)";
+		String sql = "insert into user(email, password, number, gender, address, pnumber, profilePath, emailHash, emailChecked) values (?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			conn = dataSource.getConnection();
@@ -106,6 +109,8 @@ public class UserDAO {
 			pstmt.setString(5, user.getAddress());
 			pstmt.setString(6, user.getPnumber());
 			pstmt.setString(7, ""); // 처음 회원가입 할때 profile image 없음
+			pstmt.setString(8, user.getEmailHash()); 
+			pstmt.setBoolean(9, user.isEmailChecked()); 
 			
 			return pstmt.executeUpdate();
 			
@@ -269,5 +274,49 @@ public class UserDAO {
 		}
 		
 		return list;
+	}
+	
+	// 이메일 관련 함수 작성
+	// 이메일 등록 여부 반환
+	public boolean getUserEmailChecked(String email) {
+		
+		String sql = "select emailChecked from user where email = ?"; 
+		
+		try {
+			conn = dataSource.getConnection(); 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email); 
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()) {
+				return rs.getBoolean(1); 
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
+		}
+				
+		return false; 
+	}
+	
+	public boolean setUserEmailChecked(String email) {
+		
+		String sql = "update user set emailChecked = true where email = ?";
+		
+		try {
+			conn = dataSource.getConnection(); 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.executeUpdate(); 
+			
+			return true;  // 이메일 등록 설정 성공
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
+		}
+		
+		return false; // 실패
 	}
 }

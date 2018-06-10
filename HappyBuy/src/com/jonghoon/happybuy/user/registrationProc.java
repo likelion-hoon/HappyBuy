@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jonghoon.happybuy.util.SHA256;
+
 @WebServlet("/registrationProc")
 public class registrationProc extends HttpServlet {
 	
@@ -25,15 +27,32 @@ public class registrationProc extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		UserDAO userDAO = new UserDAO(); 
 		
-		String email = request.getParameter("email"); 
-		String password = request.getParameter("password"); 
-		String passcheck = request.getParameter("passcheck"); 
-		String number = request.getParameter("number"); 
-		boolean gender = request.getParameter("gender").equals("1") ? true : false; 
-		String address = request.getParameter("address"); 
-		String pnumber = request.getParameter("pnumber");
+		// email은 email1과 email2를 합친다.
 		
-		User user = new User(email,password,number,gender,address,pnumber);
+		String email1 = request.getParameter("email1"); 
+		String email2 = request.getParameter("email2"); 
+		String email = email1 + "@" + email2; 
+		
+		String password = request.getParameter("password"); 
+		String passcheck = request.getParameter("passcheck");
+		
+		String year = request.getParameter("year"); 
+		String month = request.getParameter("month"); 
+		String day = request.getParameter("day"); 
+		
+		String number = year+"년 "+month+"월 "+day+"일";
+		
+		boolean gender = request.getParameter("gender").equals("1") ? true : false;
+		
+		String roadAddrPart1 = request.getParameter("roadAddrPart1");
+		String addrDetail = request.getParameter("addrDetail");
+		String address = roadAddrPart1 +" "+ addrDetail;
+		
+		String pnum1 = request.getParameter("pnum1"); 
+		String pnum2 = request.getParameter("pnum2"); 
+		String pnumber = "010-"+pnum1+"-"+pnum2;
+		
+		User user = new User(email,password,number,gender,address,pnumber,"", SHA256.getSHA256(email), false);
 		
 		// 입력값 체크 조건문
 		if(email.isEmpty() || password.isEmpty() || passcheck.isEmpty() || number.isEmpty() ||
@@ -52,7 +71,9 @@ public class registrationProc extends HttpServlet {
 		
 		// 입력값 DB에 저장
 		if(userDAO.insertUser(user) != -1) {
-			out.println("<script> alert('회원가입이 완료되었습니다.'); location.href='index.jsp' </script>");
+			out.println("<script>");
+			out.println("location.href='authen/emailSendAction.jsp?email="+email+"'");
+			out.println("</script>"); 
 		} else {
 			out.println("<script> alert('회원가입에 실패하였습니다.'); history.go(-1) </script>");
 		}

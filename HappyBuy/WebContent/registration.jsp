@@ -71,9 +71,6 @@
 							<option value="daum.net">daum.net</option>
 							<option value="google.com">google.com</option>
 						</select>
-						
-						<!-- 이메일 인증 버튼 -->
-						<a href="#" class="btn btn-sm btn-success" style="margin-left:20px;display:inline;">이메일 인증</a>
 					</div>
 	
 					<div class="password row">

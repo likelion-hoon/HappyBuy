@@ -31,17 +31,24 @@ public class loginProc extends HttpServlet {
 		// 빈 값 입력시
 		if(email.isEmpty() || password.isEmpty()) {
 			out.println("<script> alert('입력하지 않은 값이 있습니다.'); history.go(-1) </script>");
+			out.close(); 
 			return;
 		}
+		
 		
 		if(userDAO.login(email, password)) {
 			session.setAttribute("userID", email);
 			out.println("<script> alert('로그인에 성공하였습니다.'); location.href='index.jsp' </script>");
 		} else {
 			out.println("<script> alert('입력값이 틀렸습니다.'); history.go(-1) </script>");
+			return;
 		}
 		
-		
+		if(!userDAO.getUserEmailChecked(email)) {
+			out.println("<script> alert('이메일 인증을 받아야 로그인 할 수 있습니다.'); history.go(-1) </script>");
+			out.close(); 
+			return;
+		}
 		
 		// 사용한 자원반납
 		out.close();
