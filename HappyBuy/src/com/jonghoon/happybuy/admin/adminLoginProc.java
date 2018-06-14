@@ -27,7 +27,7 @@ public class adminLoginProc extends HttpServlet {
 		AdminDAO adminDAO = new AdminDAO(); 
 		
 		String id = request.getParameter("identi"); 
-		String password = request.getParameter("password"); 
+		String password = request.getParameter("addpasswd"); 
 		
 		if(adminDAO.login(id, password)) {
 			request.getSession().setAttribute("adminID", id);

@@ -19,6 +19,8 @@
 	<title>HappyBuy 로그인 페이지</title>
 	
 	<script>
+	
+		// 로그인 폼 설정하기
         function chooseForm(radioName) {
             var radios = document.getElementsByName(radioName); 
             for(var i=0, len = radios.length; i < len; i++) {
@@ -28,6 +30,66 @@
                 }
             }
         }
+		
+		// 쿠키 설정 함수
+		function setCookie(cname, cvalue, exdays) {
+			
+			var d = new Date(); 
+			d.setTime(d.getTime() + (exdays*24*60*60*5));
+			
+			var expires = "expires=" + d.toUTCString(); 
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		
+		// 쿠키를 얻는 함수
+		function getCookie(cname) {
+			var name = cname + "="; 
+			var decodedCookie = decodeURIComponent(document.cookie); 
+			var ca = decodedCookie.split(";"); 
+			
+			for(var i=0; i < ca.length; i++) {
+				var c = ca[i]; 
+				while(c.charAt(0) == ' ') {
+					c = c.substring(1); 
+				}
+				
+				if(c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length); 					
+				}
+			}
+			
+			return "";
+		}
+		
+		// 쿠키 삭제 함수
+		function deleteCookie(cookieName) {
+			var expireDate = new Date(); 
+			expireDate.setDate(expireDate.getDate()-1); // 어제날짜를 쿠키 소멸날짜로 설정
+			document.cookie = cookieName + "=" + ";expires=" + expireDate.toGMTString() + "; path=/";
+		}
+		
+		$(document).ready(function() {
+			var userInputId = getCookie("userInputId"); 
+		
+			// 만약 쿠키 값이 있다면
+			if(userInputId != "") {
+				$("#email").val(userInputId);
+				$("#saveEmail").attr("checked", true);
+			}
+			
+			$("#saveEmail").change(function() {
+				if($("#saveEmail").is(":checked")) {
+					// 쿠키 값이 없으면 
+					if($("#email").val()) {
+						setCookie("userInputId", $("#email").val(), 3);
+					} 
+				} else { // 체크박스 체크 안한 상태면
+					deleteCookie("userInputId"); 
+				}
+			})
+		});
+		
+		
     </script>
 </head>
 
@@ -67,11 +129,11 @@
 					</div>
 					
 					<div class="form-group">
-						<input type="checkbox" id="checkbox" name="checkbox" value="checkbox" class="form-check-input"> 로그인 상태 유지<br>
+						<input type="checkbox" id="saveEmail" name="saveEmail" value="saveEmail" class="form-check-input">&nbsp; 아이디 저장 <br>
 					</div>
 					
 					<div class="links">
-						<p> <a href="#">아이디 찾기</a>&nbsp; |&nbsp; <a href="#">비밀번호 찾기</a> &nbsp;|&nbsp; <a href="<%= application.getContextPath() %>/registration.jsp">회원가입</a></p>
+						<p> <a href="#">이메일 찾기</a>&nbsp; |&nbsp; <a href="#">비밀번호 찾기</a> &nbsp;|&nbsp; <a href="<%= application.getContextPath() %>/registration.jsp">회원가입</a></p>
 					</div>
 					
 					<button style="margin-top:15px;" type="submit" class="btn btn-primary">로그인</button>
@@ -90,7 +152,7 @@
 						<input type="text" class="form-control col-sm-3" id="identi" name="identi" placeholder="아이디" style="margin-bottom:10px;width:60%;">
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" style="width:60%;">
+						<input type="password" class="form-control" id="addpasswd" name="addpasswd" placeholder="비밀번호" style="width:60%;">
 					</div>
 					
 					<button type="submit" class="btn btn-primary">로그인</button>
