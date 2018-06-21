@@ -74,19 +74,20 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	
 	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
-	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="<%= application.getContextPath() %>/js/jquery-3.3.1.min.js"></script>
 	
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="css/nav.css">
-	<link rel="stylesheet" href="css/footer.css">
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/bootstrap-theme.min.css">
+	<script src="<%= application.getContextPath() %>/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/nav.css">
+	
 	<title>이메일 보내기</title>
 </head>
 <body>
-	<div class="container">
-	    <div class="alert alert-success mt-4" role="alert">
-		  이메일 주소 인증 메일이 전송되었습니다. 이메일에 들어가셔서 인증해주세요.
+	<div class="container" style="margin-top:60px;">
+	    <div class="jumbotron col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+		   <h3 style="margin-bottom:5px;"> 인증 메일 전송! </h3> 
+		   <p>  <%= to %>에 들어가셔서 인증해주세요. </p>
 		</div>
     </div>
 </body>

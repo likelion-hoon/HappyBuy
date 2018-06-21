@@ -1,8 +1,8 @@
 <!--  자신의 정보를 볼수 있는 페이지 -->
-<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.jonghoon.happybuy.user.UserDAO,com.jonghoon.happybuy.user.User"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="java.net.URLEncoder"%>
 <%@ page import="java.net.URLDecoder" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -55,15 +55,18 @@
 		}
 	%>
 	<div class="container"> 
-		<div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+		<div class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
 			
 			<h2> 프로필 페이지 </h2>
-			 
-			<%-- <%= userDAO.getProfile(user_id) %> --%>
+			<img src="http://127.0.0.1:8080/HappyBuy/profile/이종훈.png" />
+			
+			<p> http://127.0.0.1:8080/HappyBuy/profile/%EC%9D%B4%EC%A2%85%ED%9B%88.png </p>
+			<p> <%= userDAO.getProfile(user_id) %> </p> 
+			
 			<table class="table borderless" style="margin-top:30px;">
 				<tr>
 					<th>프로필 이미지</th>
-					<td><img src="<%= userDAO.getProfile(user_id) %>" width="100px" height="100px" alt="error"/></td>
+					<td><img src="<%=  userDAO.getProfile(user_id) %>" width="100px" height="100px" alt="error"/></td>
 				</tr>
 			
 				<tr>
@@ -72,8 +75,8 @@
 				</tr>
 				
 				<tr>
-					 <th>주민번호</th> 
-					 <td><%= user.getNumber().concat("-*******") %></td>
+					 <th>생년월일</th> 
+					 <td><%= user.getNumber() %></td>
 				</tr>
 				
 				<tr>
@@ -116,7 +119,7 @@
 				</div>
 			</div>
 			<div class="btn_list" style="margin-top:30px;">
-				<a href="<%= application.getContextPath() %>/board.jsp" class="btn btn-info">돌아가기</a>
+				<a href="<%= application.getContextPath() %>/index.jsp" class="btn btn-info">돌아가기</a>
 				<a href="<%= application.getContextPath() %>/profileEdit.jsp" class="btn btn-primary"> 회원정보 수정</a>
 			</div>
 		</div>

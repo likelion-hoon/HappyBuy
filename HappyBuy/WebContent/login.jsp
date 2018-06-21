@@ -5,7 +5,7 @@
 
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<!--  jQuery이 bootstrap보다 먼저 로딩되어야 dropdown이 동작한다. -->
 	<script src="js/jquery-3.3.1.min.js"></script>
@@ -133,7 +133,7 @@
 					</div>
 					
 					<div class="links">
-						<p> <a href="#">이메일 찾기</a>&nbsp; |&nbsp; <a href="#">비밀번호 찾기</a> &nbsp;|&nbsp; <a href="<%= application.getContextPath() %>/registration.jsp">회원가입</a></p>
+						<p> <a href="findEmail.jsp">이메일 찾기</a>&nbsp; |&nbsp; <a href="findPassword.jsp">비밀번호 찾기</a> &nbsp;|&nbsp; <a href="<%= application.getContextPath() %>/registration.jsp">회원가입</a></p>
 					</div>
 					
 					<button style="margin-top:15px;" type="submit" class="btn btn-primary">로그인</button>

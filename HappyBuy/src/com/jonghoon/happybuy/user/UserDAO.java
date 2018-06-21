@@ -1,7 +1,5 @@
 package com.jonghoon.happybuy.user;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +10,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.jonghoon.happybuy.admin.Admin;
 import com.jonghoon.happybuy.common.JdbcHelper;
 
 public class UserDAO {
@@ -195,6 +192,7 @@ public class UserDAO {
 	}
 	
 	public String getProfile(int user_id) {
+		
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement("select profilePath from user where idx = ?");
@@ -203,12 +201,12 @@ public class UserDAO {
 			
 			if(rs.next()) {
 				if(rs.getString(1).equals("")) {
-					return "http://localhost:8080/HappyBuy/profile/default.png"; 
+					return "http://127.0.0.1:8080/HappyBuy/profile/default.png"; 
 				}
-				return "http://localhost:8080/HappyBuy/profile/"+URLEncoder.encode(rs.getString(1),"UTF-8");
+				return "http://127.0.0.1:8080/HappyBuy/profile/"+rs.getString(1);
 			}
 			
-		} catch (SQLException | UnsupportedEncodingException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcHelper.close(conn,pstmt,rs); 
@@ -318,5 +316,26 @@ public class UserDAO {
 		}
 		
 		return false; // 실패
+	}
+	
+	// 파라미터와 같은 휴대폰 번호가 있을경우 email 리턴
+	public String getEmailInPnum(String first, String second) {
+		
+		String sql = "";
+		
+		return null;
+		
+	}
+	
+	// 전체 휴대폰 형식 얻어 오기 
+	public String getTotalPnum(String num) {
+		
+		int len = num.length(); 
+		
+		String fn = num.substring(0, 3); 
+		String sn = num.substring(3, len-4); 
+		String tn = num.substring(len-4);
+		
+		return fn+sn+tn; 
 	}
 }

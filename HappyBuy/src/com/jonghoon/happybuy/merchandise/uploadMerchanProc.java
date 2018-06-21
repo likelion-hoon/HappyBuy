@@ -56,9 +56,10 @@ public class uploadMerchanProc extends HttpServlet {
 		Merchan merchan = new Merchan(identiChar, title, description, price, dueDate, picUrl, user_id);
 		
 		// 상품 insert하는 함수 만들어야 함
-	
-		
-		
-		
+		if(merchanDAO.uploadGoods(merchan) > 0) {
+			
+		} else {
+			
+		}
 	}
 }

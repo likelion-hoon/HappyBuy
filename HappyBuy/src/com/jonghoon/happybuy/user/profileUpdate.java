@@ -3,6 +3,7 @@ package com.jonghoon.happybuy.user;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +45,11 @@ public class profileUpdate extends HttpServlet {
 		 String new_passcheck = multi.getParameter("new_passcheck"); 
 		 String address = multi.getParameter("address"); 
 		 String pnumber = multi.getParameter("pnumber"); 
-		 String fileRealName = multi.getFilesystemName("file"); 
+		 String fileRealName = URLEncoder.encode(multi.getFilesystemName("file")); 
+		 
+		 // System.out.println(multi.getFilesystemName("file")); 
+		 // System.out.println(URLEncoder.encode(multi.getFilesystemName("file"),"utf-8"));
+		 
 		 File file = multi.getFile("file"); 
 		 
 		 // 현재 비밀번호 에러처리

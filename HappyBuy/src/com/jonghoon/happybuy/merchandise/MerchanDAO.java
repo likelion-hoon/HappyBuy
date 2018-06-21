@@ -144,6 +144,25 @@ public class MerchanDAO {
 	}
 	
 	// 상품 등록
+	public int uploadGoods(Merchan merchan) {
+		
+		String sql = "insert to merchan(identiChar, title, description, price, dueDate, picUrl, user_id) values (?,?,?,?,?,?,?)";
+		
+		try {
+			conn = dataSource.getConnection(); 
+			pstmt = conn.prepareStatement(sql);
+			
+			return pstmt.executeUpdate(); 
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
+		}
+		
+		return -1; 
+	}
+	
+	
 	// 상품 삭제 
 	// 상품 수정
 	// getMyMerchan() -> 내가 올린 물품을 볼수 있게 

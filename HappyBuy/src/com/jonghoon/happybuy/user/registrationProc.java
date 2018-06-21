@@ -52,7 +52,7 @@ public class registrationProc extends HttpServlet {
 		String pnum2 = request.getParameter("pnum2"); 
 		String pnumber = "010-"+pnum1+"-"+pnum2;
 		
-		User user = new User(email,password,number,gender,address,pnumber,"", SHA256.getSHA256(email), false);
+		User user = new User(email,password,number,gender,address,pnumber," ",SHA256.getSHA256(email), false);
 		
 		// 입력값 체크 조건문
 		if(email.isEmpty() || password.isEmpty() || passcheck.isEmpty() || number.isEmpty() ||

@@ -24,7 +24,7 @@
             			<div class="row"> 
 	           				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 	            					<ul class="list-unstyled">
-	            						<li><h3>의류</h3></li>
+	            						<li><h3><a href="<%= application.getContextPath() %>/merchan/cloth.jsp">의류</a></h3></li>
 	            						<li role="separator" class="divider"></li>
 	            						<li><a href="#">&gt;&nbsp;남성상의</a></li>
 	            						<li><a href="#">&gt;&nbsp;여성상의</a></li>
@@ -37,7 +37,7 @@
 	           				</div>
 	           				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 	           					<ul class="list-unstyled">
-	           						<li><h3>음식</h3></li>
+	           						<li><h3><a href="<%= application.getContextPath() %>/merchan/food.jsp">음식</a></h3></li>
 	           						<li role="separator" class="divider"></li>
 	           						<li><a href="#">&gt;&nbsp;과자</a></li>
 	           						<li><a href="#">&gt;&nbsp;라면</a></li>
@@ -50,7 +50,7 @@
 	           				</div>
 	           				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 	           					<ul class="list-unstyled">
-	           						<li><h3>주거</h3></li>
+	           						<li><h3><a href="<%= application.getContextPath() %>/merchan/live.jsp">주거</a></h3></li>
 	           						<li role="separator" class="divider"></li>
 	           						<li><a href="#">&gt;&nbsp;에어컨</a></li>
 	           						<li><a href="#">&gt;&nbsp;냉장고</a></li>
