@@ -48,9 +48,7 @@ public class registrationProc extends HttpServlet {
 		String addrDetail = request.getParameter("addrDetail");
 		String address = roadAddrPart1 +" "+ addrDetail;
 		
-		String pnum1 = request.getParameter("pnum1"); 
-		String pnum2 = request.getParameter("pnum2"); 
-		String pnumber = "010-"+pnum1+"-"+pnum2;
+		String pnumber = request.getParameter("pnumber"); 
 		
 		User user = new User(email,password,number,gender,address,pnumber," ",SHA256.getSHA256(email), false);
 		

@@ -31,6 +31,7 @@
 			document.form.addrDetail.value = addrDetail;
 		}
 		
+		// jQuery 문법
 		$(document).ready(function() {
 			$("#emailLast").on("change", function() {
 				$("#email2").val($(this).val());
@@ -138,10 +139,7 @@
 					<!-- 핸드폰 번호 -->
 					<div class="form-group">
 						<label for="pnumber">핸드폰 번호</label>&nbsp;&nbsp;
-						010-
-						<input class="form-control input-sm" style="width:50px;display:inline;" id="pnum1" name="pnum1" />
-						-
-						<input class="form-control input-sm" style="width:50px;display:inline;" id="pnum2" name="pnum2" />
+						<input class="form-control" style="width:170px;display:inline;" id="pnumber" name="pnumber" placeholder="'-'표기 없이 숫자만 입력" />
 					</div>
 					
 					<hr />

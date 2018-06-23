@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jonghoon.happybuy.user.UserDAO;
 
-@WebServlet("/findEmailProc")
-public class findEmailProc extends HttpServlet {
+@WebServlet("/findPasswordProc")
+public class findPasswordProc extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
@@ -25,19 +25,24 @@ public class findEmailProc extends HttpServlet {
 		PrintWriter out = response.getWriter(); 
 		
 		String pnumber = request.getParameter("pnumber"); 
-		String email = userDAO.getEmailInPnum(pnumber);
 		
-		if(!email.equals("")) {
-			out.println("<script> location.href='responseEmail.jsp?email="+email+"'</script>");
-		} else {
-			out.println("<script> alert('일치하는 값이 없습니다.'); location.href='findEmail.jsp' </script>");
+		String email1 = request.getParameter("email1"); 
+		String email2 = request.getParameter("email2"); 
+		
+		String email = email1.concat("@").concat(email2);
+		
+		// 값이 일치하면 임시비밀번호를 해당 이메일로 보낸다
+		if(userDAO.findPasswordCheck(email, pnumber)) {
+			out.println("<script> location.href='responsePassword.jsp?email="+email+"'; </script>");
+		} else { // 값이 일치하지 않으면
+			out.println("<script> alert('값이 일치하지 않습니다.'); history.go(-1) </script>"); 
 		}
 		
-		out.close();
-		 
+		out.close(); 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		doGet(request, response);
 	}
+
 }

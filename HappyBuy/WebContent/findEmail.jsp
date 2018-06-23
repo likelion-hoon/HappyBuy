@@ -14,18 +14,21 @@
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/nav.css">
-	<title> 아이디 찾기 </title>
+	<title> 이메일 찾기 </title>
 </head>
 <body>
-	<div class="container" style="margin-top:30px;"> 
+	<%@ include file="nav.jsp" %>
+	
+	<div class="container" style="margin-top:80px;"> 
 		<!-- 휴대폰 번호 입력하면 email 알려주기 -->
 		<div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-			<h3> 아이디 찾기 </h3>
-			<hr />
-			<form action="#" method="GET">
+			<h3> 이메일 찾기 </h3>
+			
+			<form action="findEmailProc" method="GET">
+				<hr />
 				<label style="margin-bottom:10px;"> 휴대폰 번호를 입력하세요 </label><br />
-				010 - <input type="text" class="form-control" name="fpnum" style="width:50px;display:inline"> - <input type="text" class="form-control" name="spnum" style="width:50px;display:inline">
-				<a type="submit" class="btn btn-primary" > 확인 </a>
+				<input class="form-control" style="width:170px;display:inline;" id="pnumber" name="pnumber" placeholder="'-'표기 없이 숫자만 입력" />
+				<button type="submit" class="btn btn-primary" style="margin-left:5px;"> 확인 </button>
 			</form>
 		</div>
 	</div>

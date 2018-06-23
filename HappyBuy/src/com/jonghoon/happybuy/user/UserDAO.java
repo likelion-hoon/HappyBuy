@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -319,16 +320,85 @@ public class UserDAO {
 	}
 	
 	// 파라미터와 같은 휴대폰 번호가 있을경우 email 리턴
-	public String getEmailInPnum(String first, String second) {
+	public String getEmailInPnum(String pnumber) {
 		
-		String sql = "";
+		String sql = "select email from user where pnumber = ?";
 		
-		return null;
+		try {
+			conn = dataSource.getConnection(); 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pnumber);
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()) {
+				return rs.getString(1); 
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
+		}
 		
+		return "";
+	}
+	
+	// 비밀번호 찾기 요청에서 맞는지 틀린지 반환
+	public boolean findPasswordCheck(String email, String pnumber) {
+		
+		String sql = "select email, pnumber from user where email = ?"; 
+		
+		try {
+			conn = dataSource.getConnection(); 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getString(1).equals(email) && rs.getString(2).equals(pnumber)) {
+					return true;
+				}
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt, rs);
+		}
+		
+		return false; 
+	}
+	
+	// 임시 비밀번호 만드는 함수
+	public String getTemporaryPassword() {
+		String[] res = UUID.randomUUID().toString().split("-");
+		return res[0]; 
+	}
+	
+	// 해당 이메일의 비밀번호 임시 비밀번호로 바꾸기 
+	public int setTemporaryPassword(String password, String email) {
+		
+		String sql = "update user set password = ? where email = ?"; 
+		
+		try {
+			conn = dataSource.getConnection(); 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, password);
+			pstmt.setString(2, email);
+			
+			return pstmt.executeUpdate(); 
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcHelper.close(conn, pstmt);
+		}
+		
+		return -1; 
 	}
 	
 	// 전체 휴대폰 형식 얻어 오기 
-	public String getTotalPnum(String num) {
+	/*
+	public String getTotalPnum(String num) { 
 		
 		int len = num.length(); 
 		
@@ -338,4 +408,5 @@ public class UserDAO {
 		
 		return fn+sn+tn; 
 	}
+	*/
 }

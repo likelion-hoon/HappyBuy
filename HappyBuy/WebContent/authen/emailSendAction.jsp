@@ -1,7 +1,7 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="javax.mail.Transport"%>
 <%@ page import="javax.mail.internet.InternetAddress"%>
 <%@ page import="javax.mail.internet.MimeMessage"%>
-<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.jonghoon.happybuy.util.SHA256"%>
 <%@ page import="com.jonghoon.happybuy.util.Gmail"%>
 <%@ page import="com.jonghoon.happybuy.user.UserDAO" %>
@@ -26,7 +26,7 @@
 
 	// 사용자에게 보낼 메시지 기입
 	String host = "http://127.0.0.1:8080/HappyBuy/";
-	String from = "stonvcold@gmail.com";
+	String from = "no-reply@happybuy.com";
 	String to = email; 
 	
 	String subject = "회원가입을 위한 이메일 확인 과정입니다.";
@@ -62,7 +62,7 @@
 		
 		Transport.send(msg); 
 	} catch(Exception e) {
-		out.println("<script> alert('오류가 발생했습니다.'); location.href='registration.jsp'; </script>");
+		out.println("<script> alert('전송 오류가 발생했습니다.'); location.href='registration.jsp'; </script>");
 		out.close(); 
 		return;
 	}

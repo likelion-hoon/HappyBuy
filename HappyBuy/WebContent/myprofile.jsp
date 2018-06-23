@@ -58,10 +58,6 @@
 		<div class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
 			
 			<h2> 프로필 페이지 </h2>
-			<img src="http://127.0.0.1:8080/HappyBuy/profile/이종훈.png" />
-			
-			<p> http://127.0.0.1:8080/HappyBuy/profile/%EC%9D%B4%EC%A2%85%ED%9B%88.png </p>
-			<p> <%= userDAO.getProfile(user_id) %> </p> 
 			
 			<table class="table borderless" style="margin-top:30px;">
 				<tr>

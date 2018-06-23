@@ -44,11 +44,10 @@ public class profileUpdate extends HttpServlet {
 		 String new_password = multi.getParameter("new_password"); 
 		 String new_passcheck = multi.getParameter("new_passcheck"); 
 		 String address = multi.getParameter("address"); 
-		 String pnumber = multi.getParameter("pnumber"); 
-		 String fileRealName = URLEncoder.encode(multi.getFilesystemName("file")); 
+		 String pnumber = multi.getParameter("pnumber");
+		 String fileRealName = multi.getFilesystemName("file") == null ? "" : multi.getFilesystemName("file"); 
+		 // nullPointerException 제거하기
 		 
-		 // System.out.println(multi.getFilesystemName("file")); 
-		 // System.out.println(URLEncoder.encode(multi.getFilesystemName("file"),"utf-8"));
 		 
 		 File file = multi.getFile("file"); 
 		 
