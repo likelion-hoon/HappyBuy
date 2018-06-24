@@ -15,12 +15,23 @@
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/nav.css">
 	
+	<!--  datepicker를 위한 import -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<title> 회원가입 페이지 </title>
+	
 	<style>
 		input {
 			width:50px;
 		}
 	</style>
 	<script language="javascript">
+	
+		$(function() {
+			$("#datepicker").datepicker({
+				dateFormat: 'yyyy-mm-dd'	
+			});
+		});
 	
 		function goPopup(){
 			var pop = window.open("jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
@@ -85,28 +96,10 @@
 						</div>
 					</div>
 					
+					<!-- 생년월일 설정 -->
 					<div class="form-group">
-						<label for="ymd">생년월일</label>&nbsp;&nbsp;
-						<select name="year">
-							<% for(int i=2018; i>=1900; i--) { %>
-								<option value="<%= i %>"><%= i %></option>
-							<% } %>
-						</select>
-						년
-						
-						<select name="month">
-							<% for(int i=1; i<=12; i++) { %>
-								<option value="<%= i %>"><%= i %></option>
-							<% } %>
-						</select>
-						월
-						
-						<select name="day">
-							<% for(int i=1; i<=31; i++) { %>
-								<option value="<%= i %>"><%= i %></option>
-							<% } %>
-						</select>
-						일
+						<label for="duedate">만료 날짜 : </label> <input type="text" style="width:150px;display:inline;" class="form-control" id="datepicker" name="datepicker" 
+						placeholder="클릭 시 달력" autocomplete="off" />
 					</div>
 					
 					<div class="form-group">

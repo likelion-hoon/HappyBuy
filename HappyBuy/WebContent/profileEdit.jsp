@@ -17,7 +17,19 @@
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/nav.css">
+	
+	<!--  datepicker를 위한 import -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<title>프로필 수정 페이지</title>
+	
+	<script language="javascript">
+		$(function() {
+			$("#datepicker").datepicker({
+				dateFormat: 'yyyy-mm-dd'	
+			});
+		});
+	</script>
 </head>
 <%
 	PrintWriter pw = response.getWriter();
@@ -51,29 +63,38 @@
 				</div>
 				<div class="form-group">
 					<label for="now_password"> 현재 비밀번호 (현재 비밀번호를 입력하셔야 수정이 가능합니다.)</label> 
-					<input type="password" class="form-control" id="now_password" name="now_password"  />
+					<input type="password" style="width:300px"class="form-control" id="now_password" name="now_password"  />
 				</div>
 	
-				<div class="form-group">
-					<label for="new_password"> 새로운 비밀번호 (변경하고 싶지 않으시다면, 빈칸으로 남겨두세요.) </label> 
-					<input type="password" class="form-control" id="new_password" name="new_password"  />
+				<div class="form-group row">
+					<div class="col-md-6 col-lg-6">
+						<label for="new_password"> 새로운 비밀번호 </label> 
+						<input type="password" class="form-control" id="new_password" name="new_password" placeholder="변경하고 싶지 않으시다면, 빈칸으로 남겨두세요."  />
+					</div>
+					<div class="col-md-6 col-lg-6">
+						<label for="new_passcheck"> 새로운 비밀번호 확인 </label> 
+						<input type="password" class="form-control" id="new_passcheck" name="new_passcheck"  />
+					</div>
 				</div>
-	
-				<div class="form-group">
-					<label for="new_passcheck"> 새로운 비밀번호 확인 </label> 
-					<input type="password" class="form-control" id="new_passcheck" name="new_passcheck"  />
+				
+				<div class="form-group row">
+					<!-- 생년월일 설정 -->
+					<div class="col-md-6 col-lg-6">
+							<label for="number">생년 월일 </label> 
+							<input type="text"  class="form-control" id="datepicker" name="datepicker" 
+							placeholder="클릭 시 달력" autocomplete="off" />
+					</div>
+					<div class="col-md-6 col-lg-6">
+							<label for="pnumber"> 전화번호  </label> 
+							<input type="text" class="form-control" id="pnumber" name="pnumber" value="<%= user.getPnumber() %>"  />
+					</div>
 				</div>
-	
-				<div class="form-group">
+				
+				<div class="form-group" style="margin-bottom:30px;">
 					<label for="address"> 주소 </label> 
 					<input type="text" class="form-control" id="address" name="address" value="<%= user.getAddress() %>" />
 				</div>
 				
-				<div class="form-group">
-					<label for="pnumber"> 전화번호  </label> 
-					<input type="text" class="form-control" id="pnumber" name="pnumber" value="<%= user.getPnumber() %>"  />
-				</div>
-	
 				 <a href="<%= application.getContextPath() %>/myprofile.jsp" class="btn btn-info">돌아가기</a>
 				<button type="submit" class="btn btn-primary">수정하기</button>
 			</form>

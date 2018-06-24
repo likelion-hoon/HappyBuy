@@ -15,7 +15,6 @@
 	<title> 의류 쇼핑 페이지 </title>
 	
 	<style>
-		
 		label[class=merchan] {
 			margin-right:23px;
 		}
@@ -31,6 +30,13 @@
 	</style>
 </head>
 <body>
+	<%
+		if(session.getAttribute("userID")==null) {
+			out.println("<script> alert('로그인 하셔야 이용할 수 있습니다.'); location.href='../login.jsp' </script>");
+			out.close();  
+		}
+	%>
+	
 	<%@ include file="../nav.jsp" %> 
 	
 	<div class="container" style="margin-top:60px;">

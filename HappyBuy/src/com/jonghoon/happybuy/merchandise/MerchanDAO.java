@@ -146,13 +146,21 @@ public class MerchanDAO {
 	// 상품 등록
 	public int uploadGoods(Merchan merchan) {
 		
-		String sql = "insert to merchan(identiChar, title, description, price, dueDate, picUrl, user_id) values (?,?,?,?,?,?,?)";
+		String sql = "insert into merchandise(identiChar, title, description, price, dueDate, picUrl, user_id) values (?,?,?,?,?,?,?)";
 		
 		try {
 			conn = dataSource.getConnection(); 
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, merchan.getIdentiChar());
+			pstmt.setString(2, merchan.getTitle());
+			pstmt.setString(3, merchan.getDescription());
+			pstmt.setInt(4, merchan.getPrice());
+			pstmt.setString(5, merchan.getDueDate());
+			pstmt.setString(6, merchan.getPicUrl());
+			pstmt.setInt(7, merchan.getUser_id());
 			
 			return pstmt.executeUpdate(); 
+			
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {

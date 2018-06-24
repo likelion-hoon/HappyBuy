@@ -20,10 +20,22 @@
 	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/bootstrap-theme.min.css">
 	<script src="<%= application.getContextPath() %>/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="<%= application.getContextPath() %>/css/nav.css">
+	
+	<!--  datepicker를 위한 import -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<title>상품 등록 페이지</title>
 	
 	
 	<script type="text/javascript">
+	
+		$(function() {
+			$("#datepicker").datepicker({
+				dateFormat: 'yyyy-mm-dd'	
+			});
+		});
+		
+		// 상품 바꾸기
 		function doChange(srcE, targetId){
 		    var val = srcE.options[srcE.selectedIndex].value;
 		    var targetE = document.getElementById(targetId);
@@ -56,12 +68,14 @@
 			}
 		}	
 		
+		// 옵션 값 추가
 		function addOption(value, e, val, num){
 		    var o = new Option(value);
 		    o.value = val+num;
 		    e.add(o);
 		}
 
+		// 모든 상품 지우기
 		function removeAll(e){
 		    for(var i =  e.options.length-1; i>=0; i--) {
 		    	e.remove(i);
@@ -121,53 +135,27 @@
 							<label for="title">상품명</label> 
 							<input type="text" class="form-control" id="title" name="title" placeholder="상품명" >
 						</div>
-						<div class="col-md-6 col-lg-6">
+						<div class="col-md-5 col-lg-5">
 							<label for="price">가격</label>
-							<input type="text" class="form-control" id="price" name="price" placeholder="가격">
+							<input type="text" class="form-control" id="price" name="price" placeholder="숫자"> 
 						</div>
 					</div>
 					
 					<!-- 상품 설명 -->
 					<div class="form-group">
 						<label for="address">상품 설명</label>
-						<textarea style="min-height:250px" class="form-control" id="address" name="address" placeholder="상품 설명"></textarea>
+						<textarea style="min-height:250px" class="form-control" id="description" name="description" placeholder="상품 설명"></textarea>
 					</div>
 					
-					<!-- 상품 등록 마감 날짜(DueDate) -->
-					<div class="form-group">
-						<label for="duedate"> 마감 날짜 &nbsp;:&nbsp; </label>
-						<!--  년  -->
-						<select name="year" id="year">
-							<%
-								int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
-								for(int i=year; i<=year+2; i++) {
-							%> <option value="<%= i %>"><%= i %>년</option>
-							<% } %>
-						</select>
-						
-						<!--  월  -->
-						<select name="month" id="month">
-							<%
-								for(int i=1; i<=12; i++) {
-							%> <option value="<%= i %>"><%= i %>월</option>
-							<% } %>
-						</select>
-						
-						<!--  일  -->
-						<select name="day" id="day">
-							<%
-								for(int i=1; i<=31; i++) {
-							%> <option value="<%= i %>"><%= i %>일</option>
-							<% } %>
-						</select>
-					</div>
+					<!-- 상품 duedate 설정 -->
+					<label for="duedate">만료 날짜 : </label> <input type="text" style="width:150px;display:inline;" class="form-control" id="datepicker" name="datepicker" 
+					placeholder="클릭 시 달력" autocomplete="off"/>
 					
 					<!-- 사진 업로드 -->
-					<div class="form-group">
+					<div class="form-group" style="margin-top:20px;">
 						<label for="picUrl">사진업로드</label>
-						<input type="file" name="file">
+						<input type="file" name="file" />
 					</div>
-					
 					<button type="submit" class="btn btn-primary">작성</button>
 				</form>
 			</div>

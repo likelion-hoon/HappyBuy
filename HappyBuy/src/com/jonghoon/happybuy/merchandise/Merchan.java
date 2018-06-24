@@ -2,7 +2,8 @@ package com.jonghoon.happybuy.merchandise;
 
 public class Merchan {
 
-	private String identiChar; // 판별번호
+	private int idx; // 상품 고유의 번호 (primary key - auto_increment)
+	private String identiChar; // 카테고리 번호
 	private String title; // 제목
 	private String description; // 설명
 	private int price; // 가격
@@ -13,7 +14,7 @@ public class Merchan {
 
 	public Merchan() {}
 
-	// 필드 모두 사용 생성자
+	// 필드 모두 사용 생성자 (uploadDate, idx 제외) 
 	public Merchan(String identiChar, String title, String description, int price,  String dueDate,
 			String picUrl, int user_id) {
 		
@@ -25,6 +26,10 @@ public class Merchan {
 		this.picUrl = picUrl;
 		this.user_id = user_id; 
 	}
+	
+	public int getIdx() {
+		return idx;
+	}
 
 	public String getIdentiChar() {
 		return identiChar;
@@ -33,7 +38,7 @@ public class Merchan {
 	public void setIdentiChar(String identiChar) {
 		this.identiChar = identiChar;
 	}
-
+	
 	public String getTitle() {
 		return title;
 	}

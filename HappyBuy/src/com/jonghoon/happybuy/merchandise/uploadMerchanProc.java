@@ -41,25 +41,28 @@ public class uploadMerchanProc extends HttpServlet {
 		
 		String identiChar = multi.getParameter("selTwo"); // 판별번호
 		String title = multi.getParameter("title");  // 제목
-		int price = Integer.parseInt(multi.getParameter("content"));  // 가격
 		String description = multi.getParameter("description"); // 설명
-		
-		String year = multi.getParameter("year"); 
-		String month = multi.getParameter("month");
-		String day = multi.getParameter("day");
-		String picUrl = multi.getParameter("");
-		
-		String dueDate = year + "-" + month + "-" + day; // 날짜(dueDate)
+		int price = Integer.parseInt(multi.getParameter("price"));  // 가격
+		String dueDate = multi.getParameter("datepicker"); // 날짜(dueDate)
+		String picUrl = multi.getFilesystemName("file"); 
 		int user_id = Integer.parseInt(multi.getParameter("idx"));
+		
+		System.out.println(identiChar);
+		System.out.println(title);
+		System.out.println(description);
+		System.out.println(price);
+		System.out.println(dueDate);
+		System.out.println(picUrl);
+		System.out.println(user_id);
 		
 		MerchanDAO merchanDAO = new MerchanDAO(); 
 		Merchan merchan = new Merchan(identiChar, title, description, price, dueDate, picUrl, user_id);
 		
 		// 상품 insert하는 함수 만들어야 함
 		if(merchanDAO.uploadGoods(merchan) > 0) {
-			
+			out.println("<script> alert('상품 업로드에 성공하였습니다.'); location.href='/HappyBuy/merchan/shopping.jsp' </script>"); 
 		} else {
-			
+			out.println("<script> alert('상품 업로드에 실패하였습니다.'); history.go(-1) </script>"); 
 		}
 	}
 }

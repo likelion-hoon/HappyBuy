@@ -36,11 +36,7 @@ public class registrationProc extends HttpServlet {
 		String password = request.getParameter("password"); 
 		String passcheck = request.getParameter("passcheck");
 		
-		String year = request.getParameter("year"); 
-		String month = request.getParameter("month"); 
-		String day = request.getParameter("day"); 
-		
-		String number = year+"년 "+month+"월 "+day+"일";
+		String number = request.getParameter("datepicker"); 
 		
 		boolean gender = request.getParameter("gender").equals("1") ? true : false;
 		
